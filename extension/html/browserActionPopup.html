@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/css/default.css" />
+		<script src="/scripts/jquery-2.0.2.min.js" type="text/javascript"></script>
+		<script src="/scripts/commonFunctions.js" type="text/javascript"></script>
+		<script src="/scripts/browserActionPopupPage.js" type="text/javascript"></script>
+
+	</head>
+	<body id="browserActionPopupBody">
+		<table id="mainTable">
+			<tr id="mainRow">
+				<td>
+					<a id="snapLogo" href="http://www.snap.net.nz/" target="_blank" title="Go to Snap's homepage"><img src="/img/snapLogo.png" /></a>
+				</td>
+				<td>
+					<table>
+						<tr class="addWhiteSpaceBelow">
+							<td id="planName" colspan="2"><a href="https://myaccount.snap.net.nz/summary" target="_blank" title="View your Snap account summary"></a></td>
+						</tr>
+						<!--<tr class="data">
+							<td>Data limit:</td>
+							<td id="dataLimit"></td>
+						</tr>-->
+						<tr class="data">
+							<td>Data used:</td>
+							<td id="dataUsed">?? GB</td>
+						</tr>
+						<tr class="data">
+							<td><span class="tooltip" title="Data limit - Data used">Data remaining:</span></td>
+							<td id="dataRemaining">?? GB</td>
+						</tr>
+						
+						<tr class="offpeakData">
+							<td><span class="tooltip" title="Free data you've used that does not count towards your monthly cap">Off-peak data used:</span></td>
+							<td id="offpeakDataUsed">?? GB</td>
+						</tr>
+						
+						<tr class="estimates">
+							<td><span class="tooltip" title="Days elapsed &divide; Data used">Average daily usage:</span></td>
+							<td id="averageDailyUsage">?? GB</td>
+						</tr>
+						<tr class="estimates">
+							<td><span class="tooltip" title="Average daily usage &times; Days in billing period">Billing period estimate:</span></td>
+							<td id="monthlyEstimate">?? GB</td>
+						</tr>
+						<tr class="estimates">
+							<td><span class="tooltip" title="Data remaining &divide; Days remaining">Suggested daily usage:</span></td>
+							<td id="suggestedDailyUsage">?? GB</td>
+						</tr>
+						<tr class="addWhiteSpaceBelow">
+							<td colspan="2" style="padding-right:0">
+								<div id="percentageBar"><img id="notch" src="/img/notch.png" /><div id="unfilledPortion"></div></div>
+							</td>
+						</tr>
+						<tr class="addWhiteSpaceBelow">
+							<td><span class="tooltip" title="Time remaining in current billing period">Time remaining:</span></td>
+							<td id="timeRemaining">?? days</td>
+						</tr>						
+						<tr>
+							<td id="lastUpdated">Last updated ??</td>
+							<td id="update"><img src="/img/reload.png" alt="" title="Check for updated usage info" /></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

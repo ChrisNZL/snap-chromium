@@ -1,0 +1,37 @@
+{
+	"name": "Snap Usage Monitor",
+	"version": "0.3.0",
+	"manifest_version": 2,
+	"description": "Easily monitor your Snap data usage. (Chromium extension)",
+	"browser_action": {
+		"default_icon": {
+			"19": "img/browserAction/base.png"
+		},
+		"default_title": "Snap Usage Monitor",
+		"default_popup": "html/browserActionPopup_requireCredentials.html"
+	},
+	"background": {
+		"scripts": [
+			"scripts/jquery-2.0.2.min.js",
+			"scripts/commonFunctions.js",
+			"scripts/backgroundEventPage.js"
+		],
+		"persistent": false
+	},
+	"icons": {
+		"19": "img/icon48.png",
+		"48": "img/icon48.png",
+		"128": "img/icon128.png"
+	},
+	"minimum_chrome_version": "27",
+	"offline_enabled": false,
+	"options_page": "html/options.html",
+	"permissions": [
+		"alarms",
+		"storage",
+		"https://myaccount.snap.net.nz/",
+		"http://www.snap.net.nz/"
+	],
+	"homepage_url": "https://github.com/ChrisNZL/snap-chromium",
+	"update_url": "https://raw.github.com/ChrisNZL/snap-chromium/master/updateManifest.xml"
+}

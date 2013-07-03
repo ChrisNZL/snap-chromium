@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/css/default.css" />
+		<script src="/scripts/jquery-2.0.2.min.js" type="text/javascript"></script>
+		<script src="/scripts/commonFunctions.js" type="text/javascript"></script>
+		<script src="/scripts/optionsPage.js" type="text/javascript"></script>
+		<link rel="shortcut icon" href="/img/favicon.ico" />
+		<title>Snap Usage Monitor</title>
+	</head>
+	<body id="optionsPageBody">
+		<center>
+			<div id="mainContent">
+				<div id="header">
+					<h1>Snap Usage Monitor</h1>
+					<center>Version <span id="version"></span></center>
+				</div>
+				<!-- Login credentials -->
+				<div class="loginCredentials">
+					<form id="login">
+						<table>
+							<tr>
+								<td>Username:</td>
+								<td><input id="username" type="text" placeholder="username@snap.net.nz" /></td>
+							</tr>
+							<tr>
+								<td>Password:</td>
+								<td><input id="password" type="password" /></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td class="buttonCell"><input type="submit" value="Save" id="loginButton" /></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+			<div id="footer">
+				This extension is unofficial and not maintained by Snap.
+			</div>
+		</center>
+		
+		<div id="allSet">
+			All set! Your Snap usage info will be retrieved every 15 minutes<br />from here on.<br /><br />
+			To view your usage, click the <img src="/img/s!.png" /> icon above.
+		</div>
+	</body>
+</html>
