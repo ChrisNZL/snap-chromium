@@ -2,7 +2,8 @@
 
 **Requires a Chromium-based browser built on Chromium version 27 or higher.**
 
-![](http://iforce.co.nz/i/ff1x3gvo.dgz.png)
+![](http://iforce.co.nz/i/1ahpkr4f.rez.png)
+
 
 If [Snap](http://www.snap.net.nz/) is your ISP in New Zealand, this extension lets you view details of your data usage with the click of a button:
 * Data used
