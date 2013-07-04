@@ -26,12 +26,19 @@ This extension has been tested on:
 * [Google Chrome](https://www.google.com/intl/en/chrome/browser/) v27
 * [Opera Next](http://www.opera.com/developer/next) v15
 
-To install:
+Using Google Chrome or Chromium? [Download from the Chrome Web Store.](https://chrome.google.com/webstore/detail/snap-usage-monitor/okffoefibimfmcddjbmbfnlbjdpjokkn)
+
+Using Opera Next? [Download from Opera Add-ons.](https://addons.opera.com/en/extensions/details/snap-usage-monitor/?display=en)
+
+Otherwise, to install manually:
 
 1. Right-click [SnapChromium_0.3.0.crx](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.3.0.crx) and save this CRX file to your computer.
 2. Open your Chromium-based browser's extensions page.
 3. Click and drag the downloaded SnapChromium_0.3.0.crx file from your computer to your browser's extensions page; your browser will say "Drop to install".
 4. Follow the installation prompts.
 
+### Help, FAQ
+
+Please view the [Help, FAQ page on my snap-chrome wiki](https://github.com/ChrisNZL/snap-chrome/wiki/Help,-FAQ).
 
 
