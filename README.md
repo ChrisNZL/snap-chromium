@@ -4,11 +4,11 @@
 
 ![](http://iforce.co.nz/i/1ahpkr4f.rez.png)
 
-
 If [Snap](http://www.snap.net.nz/) is your ISP in New Zealand, this extension lets you view details of your data usage with the click of a button:
 * Data used
 * Data remaining
-* Off-peak data used (if you have uncapped nights from 1am-7am)
+* Off-peak data used (if you have Uncapped Nights from 1am-7am)
+* Free YouTube data used (if you have All You Can Eat YouTube)
 * Average daily usage
 * Billing period estimate
 * Suggested daily usage
@@ -33,9 +33,9 @@ Using Opera Next? [Download from Opera Add-ons.](https://addons.opera.com/en/ext
 
 Otherwise, to install manually:
 
-1. Right-click [SnapChromium_0.3.0.crx](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.3.0.crx) and save this CRX file to your computer.
+1. Right-click [SnapChromium_0.4.0.crx](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.4.0.crx) and save this CRX file to your computer.
 2. Open your Chromium-based browser's extensions page.
-3. Click and drag the downloaded SnapChromium_0.3.0.crx file from your computer to your browser's extensions page; your browser will say "Drop to install".
+3. Click and drag the downloaded SnapChromium_0.4.0.crx file from your computer to your browser's extensions page; your browser will say "Drop to install".
 4. Follow the installation prompts.
 
 ### Help, FAQ
