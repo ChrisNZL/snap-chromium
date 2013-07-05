@@ -25,13 +25,13 @@ body#browserActionPopupBody a:focus { outline: none; }
 body#browserActionPopupBody a#snapLogo { padding-right:2px; }
 body#browserActionPopupBody { background-color:#fff; }
 body#browserActionPopupBody td { white-space:nowrap; font-size:12px; vertical-align:top; }
-body#browserActionPopupBody tr td:first-child { padding-right:10px; }
+body#browserActionPopupBody tr td:first-child { padding-right:11px; }
 body#browserActionPopupBody tr td:first-child + td { text-align:right; }
 body#browserActionPopupBody td#planName { font-weight:bold; }
 body#browserActionPopupBody td#planName a { color:inherit; font-weight:bold; font-size:13px; text-decoration:none; }
 body#browserActionPopupBody td#planName a:hover { cursor:pointer; text-decoration:underline; }
-body#browserActionPopupBody td#lastUpdated { color:#919191; }
-body#browserActionPopupBody td#update img { height:12px; width:12px; cursor:pointer; opacity:.6; padding:5px; margin:-3px -5px -2px 0; }
+body#browserActionPopupBody td#lastUpdated { color:rgba(0,0,0,.65); /*color:#919191;*/ }
+body#browserActionPopupBody td#update img { height:12px; width:12px; cursor:pointer; opacity:.55; padding:5px; margin:-3px -5px -2px 0; }
 body#browserActionPopupBody td#update img:hover { opacity:1; }
 body#browserActionPopupBody tr.addWhiteSpaceBelow td { padding-bottom:7px; }
 .tooltip, div, span, strong, a, form { font-size:inherit; }
@@ -42,12 +42,12 @@ div.networkStatusTitle { font-weight:bold; }
 body#browserActionPopupBody tr td#networkStatus { padding-right:0; }
 body#browserActionPopupBody tr td#networkStatus > div { border:1px solid #f1d0af; border-radius:3px; padding:7px; background-color:#fffbf5; font-size:11px; line-height:20px; }
 body#browserActionPopupBody tr td#networkStatus a { line-height:18px; }
-img#dismiss { float:right; width:18px; cursor:pointer; margin:-4px -4px 0 0; opacity:.5; display:none; }
+img#dismiss { float:right; width:18px; cursor:pointer; margin:-4px -4px 0 0; opacity:.25; /*display:none;*/ }
 img#dismiss:hover { opacity:1; }
 td#networkStatus:hover img#dismiss { display:inline; }
 td#networkStatus.networkIsNotOkay { text-align:center; }
 
-tr.offpeakData { display:none; }
+tr.offpeakData, tr.youTubeData { display:none; color:rgba(0,0,0,.65); }
 
 /* PERCENTAGE PROGRESS BAR */
 #percentageBar { height:12px; border-radius:2px; cursor:help; overflow:hidden; position:relative; margin-top:1px;

@@ -167,6 +167,7 @@ function fetchDataUsage () {
 			
 			// POST user's credentials to the login URL with attribute names that match Snap's login form
 			var loginUrl = 'https://myaccount.snap.net.nz/login/?next=/summary';
+			//var loginUrl = 'http://127.0.0.1/snap/accountSummary.htm';
 			var postData = {
 				form_Username: credentials.snapUsername,
 				form_Password: credentials.snapPassword,
@@ -207,6 +208,14 @@ function fetchDataUsage () {
 						}
 					});
 					
+					// See if user has free YouTube data
+					var freeYouTubeEnabled = false;
+					$('table.zebra > tbody td', result).each(function(){
+						if ($(this).text().trim() == '+ All You Can Eat YouTube') {
+							freeYouTubeEnabled = true;
+						}
+					});
+					
 					// Record the time that this was fetched
 					chrome.storage.local.set({ timeDataWasLastFetched: time() });
 					
@@ -217,12 +226,13 @@ function fetchDataUsage () {
 						billingPeriodEndDate: billingPeriodEndDate,
 						gigabyteLimit: gigabyteLimit,
 						gigabytesRemaining: gigabytesRemaining,
-						uncappedNightsEnabled: uncappedNightsEnabled
+						uncappedNightsEnabled: uncappedNightsEnabled,
+						freeYouTubeEnabled: freeYouTubeEnabled
 					};
 					chrome.storage.local.set({ dataService: dataService }, function(){
 						createBrowserActionIcon();
-						if (dataService.uncappedNightsEnabled == true) {
-							fetchOffpeakDataUsage(dataService);
+						if (dataService.uncappedNightsEnabled == true || dataService.freeYouTubeEnabled == true) {
+							fetchFreeDataUsage(dataService);
 						}
 						fetchNetworkStatus();
 						chrome.runtime.sendMessage(null, 'Data has been fetched and saved');
@@ -236,22 +246,34 @@ function fetchDataUsage () {
 	});
 }
 
-// Function to retrieve offpeak/unlimited/free data (sits on a different page from the fetchDataUsage function)
-function fetchOffpeakDataUsage (dataService) {
-	// Example URL: https://myaccount.snap.net.nz/summary/dynamic/daily/?date=2013-06-10%2013:00:00
+// Function to retrieve free data usage (eg Uncapped Nights and Free YouTube) (sits on a different page from the fetchDataUsage function)
+// Example URL: https://myaccount.snap.net.nz/summary/dynamic/daily/?date=2013-06-10%2013:00:00
+function fetchFreeDataUsage (dataService) {
+
+	var getGigabytesFromCell = function (cell) {
+		var usageText = $('b', cell).text();
+		var usageParts = usageText.split(' ');
+		var gigabytes = usageParts[0] / (usageParts[1] == 'GB' ? 1 : 1024);
+		return gigabytes;
+	};
+
 	var u = getUsageInfoObject(dataService);
 	var dailyBreakdownUrl = 'https://myaccount.snap.net.nz/summary/dynamic/daily/?date=' + date('Y-m-d%20H:i:s', u.billingPeriodStartTime);
+	//var dailyBreakdownUrl = 'http://127.0.0.1/snap/dailyBreakdown.htm';
 	$.get(dailyBreakdownUrl)
 	.done(function(result){
-		if ($('div#total_usage td', result).length == 3) {
-			var uncappedNightsCell = $('div#total_usage td', result).last();
-			var usageText = $('b', uncappedNightsCell).text();
-			var usageParts = usageText.split(' ');
-			var gigabytes = usageParts[0] / (usageParts[1] == 'GB' ? 1 : 1024);
-			chrome.storage.local.set({ offpeakDataUsed: gigabytes }, function(){
-				chrome.runtime.sendMessage(null, 'Data has been fetched and saved');
-			});
-		}
+		var offpeakDataUsed = 0;
+		var youTubeDataUsed = 0;
+		$('div#total_usage td', result).each(function(){
+			if (substr_count($(this).text(), 'Uncapped Nights') > 0) {
+				offpeakDataUsed = getGigabytesFromCell($(this));
+			} else if (substr_count($(this).text(), 'Free Youtube') > 0) {
+				youTubeDataUsed = getGigabytesFromCell($(this));
+			}
+		});
+		chrome.storage.local.set({ offpeakDataUsed:offpeakDataUsed, youTubeDataUsed:youTubeDataUsed }, function(){
+			chrome.runtime.sendMessage(null, 'Data has been fetched and saved');
+		});
 	})
 	.fail(function(jqXHR, textStatus, errorThrown){
 		console.warn('Oops! Snap Usage Monitor failed to fetch offpeak data usage because:\n\n'+errorThrown);
@@ -275,7 +297,7 @@ $(document).ready(function(){
 					chrome.tabs.create({url:"/html/options.html"});
 					break;
 				case "update":
-				
+					fetchDataUsage();
 					break;
 				case "chrome_update":
 				

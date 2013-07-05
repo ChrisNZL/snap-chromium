@@ -1,7 +1,7 @@
 // Function to display usage info in the pop-up page
 function displayUsageInfo () {
 	// Populate pop-up page with data
-	chrome.storage.local.get(['dataService', 'timeDataWasLastFetched', 'offpeakDataUsed'], function(storage){
+	chrome.storage.local.get(['dataService', 'timeDataWasLastFetched', 'offpeakDataUsed', 'youTubeDataUsed'], function(storage){
 		var dataService = storage.dataService;
 		var u = getUsageInfoObject(dataService);
 
@@ -10,7 +10,8 @@ function displayUsageInfo () {
 			return number_format(number, 2) + ' GB';
 		}
 		
-		$('#planName a').text(u.planName);
+		// Plan name -- hide "& Snap Plus" if it's there because it makes the plan name rather long
+		$('#planName a').text(str_replace('& Snap Plus', '', u.planName));
 		
 		// Normal data
 		$('#dataLimit').text(gbFormat(u.dataLimit));
@@ -21,6 +22,16 @@ function displayUsageInfo () {
 		if (dataService.uncappedNightsEnabled == true) {
 			$('#offpeakDataUsed').text(gbFormat(storage.offpeakDataUsed));
 			$('tr.offpeakData').css('display', 'table-row');
+		} else {
+			$('tr.offpeakData').css('display', 'none');
+		}
+		
+		// YouTube data
+		if (dataService.freeYouTubeEnabled == true) {
+			$('#youTubeDataUsed').text(gbFormat(storage.youTubeDataUsed));
+			$('tr.youTubeData').css('display', 'table-row');
+		} else {
+			$('tr.youTubeData').css('display', 'none');
 		}
 
 		// Estimates
@@ -101,7 +112,7 @@ function displayUsageInfo () {
 		
 		// Add white space for readability
 		$('tr.data').last().addClass('addWhiteSpaceBelow');
-		$('tr.offpeakData').last().addClass('addWhiteSpaceBelow');
+		$('tr.freeData:visible').removeClass('addWhiteSpaceBelow').last().addClass('addWhiteSpaceBelow');
 		$('tr.estimates').last().addClass('addWhiteSpaceBelow');
 	});
 }
