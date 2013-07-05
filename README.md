@@ -58,7 +58,7 @@ Please note that the Opera Add-ons site can take a couple of days to review and 
 
 ### Help, FAQ
 
-Please view the [Help, FAQ page on my snap-chrome wiki](https://github.com/ChrisNZL/snap-chrome/wiki/Help,-FAQ).
+Please view the [Help/FAQ wiki page](https://github.com/ChrisNZL/snap-chrome/wiki/Help,-FAQ) for other details.
 
 ---
 
