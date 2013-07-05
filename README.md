@@ -19,28 +19,48 @@ And a visual progress bar that displays:
 * Percentage of data used towards your limit
 * How far through the billing period you are
 
-### Installation instructions
-
 This extension has been tested on:
 * [Chromium](https://download-chromium.appspot.com/) v30
 * [Comodo Dragon](http://www.comodo.com/home/browsers-toolbars/browser.php) v27
 * [Google Chrome](https://www.google.com/intl/en/chrome/browser/) v27
 * [Opera Next](http://www.opera.com/developer/next) v15
 
-Using Google Chrome or Chromium? [Download from the Chrome Web Store.](https://chrome.google.com/webstore/detail/snap-usage-monitor/okffoefibimfmcddjbmbfnlbjdpjokkn)
+---
 
-Using Opera Next? [Download from Opera Add-ons.](https://addons.opera.com/en/extensions/details/snap-usage-monitor/?display=en)
+### Installation instructions
 
-Otherwise, to install manually:
+#### Using Google Chrome or Chromium?
+
+[Download from the Chrome Web Store.](https://chrome.google.com/webstore/detail/snap-usage-monitor/okffoefibimfmcddjbmbfnlbjdpjokkn)
+
+#### Using Opera Next?
+
+[Download from Opera Add-ons.](https://addons.opera.com/en/extensions/details/snap-usage-monitor/?display=en)
+
+#### Using a different browser or want to install manually?
 
 1. Right-click [SnapChromium_0.4.0.crx](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.4.0.crx) and save this CRX file to your computer.
 2. Open your Chromium-based browser's extensions page.
 3. Click and drag the downloaded SnapChromium_0.4.0.crx file from your computer to your browser's extensions page; your browser will say "Drop to install".
 4. Follow the installation prompts.
 
+#### Wanting to update?
+
+If your browser hasn't automatically updated the extension for you, you can force your browser to try and update:
+
+1. Go to your browser's extensions page.
+2. Select "Developer Mode".
+3. Click the "Update extensions now" button.
+
+Please note that the Opera Add-ons site can take a couple of days to review and publish updated versions.
+
+---
+
 ### Help, FAQ
 
 Please view the [Help, FAQ page on my snap-chrome wiki](https://github.com/ChrisNZL/snap-chrome/wiki/Help,-FAQ).
+
+---
 
 ### Changelog
 
@@ -55,3 +75,8 @@ calculations.
 * Plan names that contain "& Snap Plus" are now truncated to not make
 the pop-up window be too wide.
 
+---
+
+This extension is unofficial and not maintained by Snap.
+
+If you need assistance, tweet me on Twitter [@ChrisNZL](https://twitter.com/ChrisNZL), or email me chrisnzl@snap.net.nz - thanks!
