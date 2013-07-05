@@ -42,4 +42,16 @@ Otherwise, to install manually:
 
 Please view the [Help, FAQ page on my snap-chrome wiki](https://github.com/ChrisNZL/snap-chrome/wiki/Help,-FAQ).
 
+### Changelog
+
+v0.4.0 - 5 July 2013
+* Free YouTube data usage is now shown if you have it.
+* Fixed Uncapped Nights data usage not displaying correctly in some
+cases.
+* Free YouTube and Uncapped Nights usage is now slightly faded to
+increase readability and visual separation from regular data
+calculations.
+* Close button to dismiss network messages is now visible by default.
+* Plan names that contain "& Snap Plus" are now truncated to not make
+the pop-up window be too wide.
 
