@@ -13,6 +13,9 @@ function displayUsageInfo () {
 		// Plan name -- hide "& Snap Plus" if it's there because it makes the plan name rather long
 		$('#planName a').text(str_replace('& Snap Plus', '', u.planName));
 		
+		// Unlimited plan? Hide the irrelevant stuff
+		$('.unlimited-hide').css('display', 'none');
+		
 		// Normal data
 		$('#dataLimit').text(gbFormat(u.dataLimit));
 		$('#dataUsed').text(gbFormat(u.dataUsed));
