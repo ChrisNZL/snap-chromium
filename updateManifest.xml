@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
   <app appid='gilodjblfnkkhkobgckkfaamkahigiog'>
-    <updatecheck codebase='https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.5.crx' version='0.5' prodversionmin='34' />
+    <updatecheck codebase='https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.5.1.crx' version='0.5.1' prodversionmin='27' />
   </app>
 </gupdate>

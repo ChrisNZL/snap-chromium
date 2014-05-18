@@ -1,6 +1,6 @@
 {
 	"name": "Snap Usage Monitor",
-	"version": "0.5",
+	"version": "0.5.1",
 	"manifest_version": 2,
 	"description": "Easily monitor your Snap data usage. (Chromium extension)",
 	"browser_action": {
@@ -23,7 +23,7 @@
 		"48": "img/icon48.png",
 		"128": "img/icon128.png"
 	},
-	"minimum_chrome_version": "34",
+	"minimum_chrome_version": "27",
 	"offline_enabled": false,
 	"options_page": "html/options.html",
 	"permissions": [
