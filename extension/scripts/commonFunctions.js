@@ -3,9 +3,7 @@ function getUsageInfoObject (dataService) {
 	var planName = dataService.planName;
 	var dataLimit = dataService.limitGB;
 	var dataUsed = dataService.usedGB;
-	var dataUsedPercentage = dataLimit
-	  ? dataUsed / dataLimit
-	  : false;
+	var dataUsedPercentage = dataLimit ? dataUsed / dataLimit : false;
 	var dataRemaining = dataService.remainingGB;
 	var billingPeriodStartTime = strtotime(fixBillingPeriodDate(dataService.billingPeriodStartDate));
 	var billingPeriodEndTime = strtotime(fixBillingPeriodDate(dataService.billingPeriodEndDate));
@@ -17,17 +15,16 @@ function getUsageInfoObject (dataService) {
 	var daysRemaining = secondsRemaining / 86400;
 	var averageDailyUsage = dataUsed / daysElapsed;
 	var monthlyEstimate = averageDailyUsage * daysInBillingPeriod;
-	var suggestedDailyUsage = dataLimit
-	  ? Math.min(dataRemaining / daysRemaining, dataRemaining)
-	  : false;
+	var suggestedDailyUsage = dataLimit ? Math.min(dataRemaining / daysRemaining, dataRemaining) : false;
 	  
-	// bar colour logic
-	if(dataLimit && dataUsed >= dataLimit) {
-		var barColor = 'red';
+	// Bar colour logic
+  var barColor;
+	if (dataLimit && dataUsed >= dataLimit) {
+		barColor = 'red';
 	} else if(dataLimit && monthlyEstimate > dataLimit) {
-		var barColor = 'orange';
+		barColor = 'orange';
 	} else {
-		var barColor = 'green';
+		barColor = 'green';
 	}
 	
 	return {

@@ -16,10 +16,11 @@ function displayUsageInfo () {
 		// Normal data
 		//$('#dataLimit').text(gbFormat(u.dataLimit));
 		$('#dataUsed').text(gbFormat(u.dataUsed));
-		$('#dataRemaining').html(u.dataLimit
-		  ? gbFormat(u.dataRemaining)
-		  : '&#8734;'
-		);
+		if (u.dataLimit) {
+			$('#dataRemaining').html(gbFormat(u.dataRemaining));
+		} else {
+			$('#dataRemaining').html('<span class="tooltip">Unlimited</span>').attr('title', "You have Unlimited Data.");
+		}
 		
 		// Offpeak data
 		if (dataService.uncappedNightsEnabled == true) {
@@ -44,19 +45,17 @@ function displayUsageInfo () {
 		$('#averageDailyUsage').attr('title', number_format(averageDailyKBPerSecond, 1) + ' KB/s');
 		
 		$('#monthlyEstimate').text(gbFormat(u.monthlyEstimate));
-		
-		$('#suggestedDailyUsage').html(u.dataLimit
-		  ? '<span class="tooltip">'+gbFormat(u.suggestedDailyUsage)+'</span>'
-		  : '&#8734;'
-		);
-		var kbRemaining = u.dataRemaining * 1048576; // 1 GB = 1048576 KB
-		var kbPerSecond = kbRemaining / u.secondsRemaining;
-		$('#suggestedDailyUsage').attr('title', number_format(kbPerSecond, 1) + ' KB/s');
+		if (u.dataLimit) {
+			$('#suggestedDailyUsage').html('<span class="tooltip">'+gbFormat(u.suggestedDailyUsage)+'</span>');
+			var kbRemaining = u.dataRemaining * 1048576; // 1 GB = 1048576 KB
+			var kbPerSecond = kbRemaining / u.secondsRemaining;
+			$('#suggestedDailyUsage').attr('title', number_format(kbPerSecond, 1) + ' KB/s');
+		} else {
+			$('tr.suggestedDailyUsage').remove();
+		}
 		
 		// Percentage bar
-		var percentageBar = u.dataLimit
-		  ? u.dataUsedPercentage * 100
-		  : u.daysElapsedPercentage * 100;
+		var percentageBar = (u.dataLimit ? u.dataUsedPercentage : u.daysElapsedPercentage) * 100;
 		$('#unfilledPortion').css('width', (100 - percentageBar) + '%');
 		$('#percentageBar').removeClass();
 		$('#percentageBar').addClass(u.barColor);

@@ -62,10 +62,7 @@ function createBrowserActionIcon () {
 						barColorImage = images.barRed;
 						break;
 				}
-				var barWidth = Math.round(17 * (u.dataLimit
-				  ? u.dataUsedPercentage
-				  : u.daysElapsedPercentage
-				));
+				var barWidth = Math.round( 17 * (u.dataLimit ? u.dataUsedPercentage : u.daysElapsedPercentage) );
 				context.drawImage(barColorImage, 1, 14, barWidth, 4);
 				
 				// Horizontal shadow - goes to the right of the percentage bar

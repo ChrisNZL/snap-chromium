@@ -11,26 +11,27 @@ body#optionsPageBody center { font-size:90%; }
 body#optionsPageBody * { font-size:12px; }
 body#optionsPageBody td { padding:5px; }
 body#optionsPageBody h1 { padding:0; margin:0 0 10px 0; font:menu; font-weight:bold; letter-spacing:0px; font-size:20px; line-height:20px; }
-body#optionsPageBody div#mainContent { padding:20px 20px 5px 20px; background-color:#fff; border-radius:7px; box-shadow:0px 1px 5px rgba(0,0,0,.35); display:inline-block; margin:0 auto; white-space:nowrap; }
+body#optionsPageBody div#mainContent { padding:20px 20px 5px 20px; background-color:#fff; border-radius:7px; box-shadow:0px 1px 5px rgba(0,0,0,.35);
+	display:inline-block; margin:0 auto; white-space:nowrap; }
 body#optionsPageBody div#footer { padding:20px; max-width:800px; margin:0 auto; color:#919191; font-size:90%; text-shadow:0 1px 0 #e4e4e4; }
 body#optionsPageBody input[type='text'], body#optionsPageBody input[type='password'] { width: 150px; }
 body#optionsPageBody input[type='submit'] { padding:2px 12px 3px 12px; }
 body#optionsPageBody td.buttonCell { text-align:right; }
 
-div#allset { display:none; position:absolute; top:0; left:100%; background-color:#fffeee; padding:15px; white-space:nowrap; border-radius:5px; margin:5px; border:1px solid #edcf59; box-shadow:2px 2px 2px rgba(0,0,0,.35); }
-
+div#allset { display:none; position:absolute; top:0; left:100%; background-color:#fffeee; padding:15px; white-space:nowrap; border-radius:5px;
+	margin:5px; border:1px solid #edcf59; box-shadow:2px 2px 2px rgba(0,0,0,.35); }
 
 /* BROWSER ACTION POP-UP PAGE */
 body#browserActionPopupBody a:focus { outline: none; }
 body#browserActionPopupBody a#snapLogo { padding-right:2px; }
-body#browserActionPopupBody { background-color:#fff; }
+body#browserActionPopupBody { background-color:#fff; padding-top:1px; padding-right:1px; }
 body#browserActionPopupBody td { white-space:nowrap; font-size:12px; vertical-align:top; }
 body#browserActionPopupBody tr td:first-child { padding-right:11px; }
 body#browserActionPopupBody tr td:first-child + td { text-align:right; }
 body#browserActionPopupBody td#planName { font-weight:bold; }
 body#browserActionPopupBody td#planName a { color:inherit; font-weight:bold; font-size:13px; text-decoration:none; }
 body#browserActionPopupBody td#planName a:hover { cursor:pointer; text-decoration:underline; }
-body#browserActionPopupBody td#lastUpdated { color:rgba(0,0,0,.65); /*color:#919191;*/ }
+body#browserActionPopupBody td#lastUpdated { color:rgba(0,0,0,.65); }
 body#browserActionPopupBody td#update img { height:12px; width:12px; cursor:pointer; opacity:.55; padding:5px; margin:-3px -5px -2px 0; }
 body#browserActionPopupBody td#update img:hover { opacity:1; }
 body#browserActionPopupBody tr.addWhiteSpaceBelow td { padding-bottom:7px; }
@@ -42,7 +43,7 @@ div.networkStatusTitle { font-weight:bold; }
 body#browserActionPopupBody tr td#networkStatus { padding-right:0; }
 body#browserActionPopupBody tr td#networkStatus > div { border:1px solid #f1d0af; border-radius:3px; padding:7px; background-color:#fffbf5; font-size:11px; line-height:20px; }
 body#browserActionPopupBody tr td#networkStatus a { line-height:18px; }
-img#dismiss { float:right; width:18px; cursor:pointer; margin:-4px -4px 0 0; opacity:.25; /*display:none;*/ }
+img#dismiss { float:right; width:18px; cursor:pointer; margin:-4px -4px 0 0; opacity:.25; }
 img#dismiss:hover { opacity:1; }
 td#networkStatus:hover img#dismiss { display:inline; }
 td#networkStatus.networkIsNotOkay { text-align:center; }
