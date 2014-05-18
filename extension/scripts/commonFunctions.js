@@ -1,10 +1,12 @@
 // Function to get usage info object, derived StorageArea's dataService object
 function getUsageInfoObject (dataService) {
 	var planName = dataService.planName;
-	var dataLimit = dataService.gigabyteLimit;
-	var dataUsed = dataService.gigabyteLimit - dataService.gigabytesRemaining;
-	var dataUsedPercentage = dataUsed / dataLimit;
-	var dataRemaining = dataService.gigabytesRemaining;
+	var dataLimit = dataService.limitGB;
+	var dataUsed = dataService.usedGB;
+	var dataUsedPercentage = dataLimit
+	  ? dataUsed / dataLimit
+	  : false;
+	var dataRemaining = dataService.remainingGB;
 	var billingPeriodStartTime = strtotime(fixBillingPeriodDate(dataService.billingPeriodStartDate));
 	var billingPeriodEndTime = strtotime(fixBillingPeriodDate(dataService.billingPeriodEndDate));
 	var daysInBillingPeriod = (billingPeriodEndTime - billingPeriodStartTime) / 86400; // (60 seconds * 60 minutes * 24 hours)
@@ -15,8 +17,18 @@ function getUsageInfoObject (dataService) {
 	var daysRemaining = secondsRemaining / 86400;
 	var averageDailyUsage = dataUsed / daysElapsed;
 	var monthlyEstimate = averageDailyUsage * daysInBillingPeriod;
-	var suggestedDailyUsage = Math.min(dataRemaining / daysRemaining, dataRemaining);
-	var barColor = monthlyEstimate > dataService.gigabyteLimit ? (dataUsed >= dataService.gigabyteLimit ? 'red' : 'orange') : 'green';
+	var suggestedDailyUsage = dataLimit
+	  ? Math.min(dataRemaining / daysRemaining, dataRemaining)
+	  : false;
+	  
+	// bar colour logic
+	if(dataLimit && dataUsed >= dataLimit) {
+		var barColor = 'red';
+	} else if(dataLimit && monthlyEstimate > dataLimit) {
+		var barColor = 'orange';
+	} else {
+		var barColor = 'green';
+	}
 	
 	return {
 		planName: planName,

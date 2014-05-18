@@ -14,9 +14,12 @@ function displayUsageInfo () {
 		$('#planName a').text(str_replace('& Snap Plus', '', u.planName));
 		
 		// Normal data
-		$('#dataLimit').text(gbFormat(u.dataLimit));
+		//$('#dataLimit').text(gbFormat(u.dataLimit));
 		$('#dataUsed').text(gbFormat(u.dataUsed));
-		$('#dataRemaining').text(gbFormat(u.dataRemaining));
+		$('#dataRemaining').html(u.dataLimit
+		  ? gbFormat(u.dataRemaining)
+		  : '&#8734;'
+		);
 		
 		// Offpeak data
 		if (dataService.uncappedNightsEnabled == true) {
@@ -42,13 +45,19 @@ function displayUsageInfo () {
 		
 		$('#monthlyEstimate').text(gbFormat(u.monthlyEstimate));
 		
-		$('#suggestedDailyUsage').html('<span class="tooltip">'+gbFormat(u.suggestedDailyUsage)+'</span>');
+		$('#suggestedDailyUsage').html(u.dataLimit
+		  ? '<span class="tooltip">'+gbFormat(u.suggestedDailyUsage)+'</span>'
+		  : '&#8734;'
+		);
 		var kbRemaining = u.dataRemaining * 1048576; // 1 GB = 1048576 KB
 		var kbPerSecond = kbRemaining / u.secondsRemaining;
 		$('#suggestedDailyUsage').attr('title', number_format(kbPerSecond, 1) + ' KB/s');
 		
 		// Percentage bar
-		$('#unfilledPortion').css('width', (100 - (u.dataUsedPercentage * 100)) + '%');
+		var percentageBar = u.dataLimit
+		  ? u.dataUsedPercentage * 100
+		  : u.daysElapsedPercentage * 100;
+		$('#unfilledPortion').css('width', (100 - percentageBar) + '%');
 		$('#percentageBar').removeClass();
 		$('#percentageBar').addClass(u.barColor);
 		var percentageBarPixelWidth = $('#percentageBar').width();

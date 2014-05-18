@@ -62,7 +62,10 @@ function createBrowserActionIcon () {
 						barColorImage = images.barRed;
 						break;
 				}
-				var barWidth = Math.round(17 * u.dataUsedPercentage);
+				var barWidth = Math.round(17 * (u.dataLimit
+				  ? u.dataUsedPercentage
+				  : u.daysElapsedPercentage
+				));
 				context.drawImage(barColorImage, 1, 14, barWidth, 4);
 				
 				// Horizontal shadow - goes to the right of the percentage bar
@@ -180,24 +183,40 @@ function fetchDataUsage () {
 				} else if ($('h2:contains("Data Services")', result).length != 1) {
 					console.warn('Oops! Snap Usage Monitor logged into your account okay, but no Data Services were found.');
 				} else {
-					// Logged in successfully!
-					// Parse the fetched HTML
+					// Logged in successfully! Parse the fetched HTML
 					var tableRow = $('div.service tbody tr', result).first();
-					var cell_0 = $('td', tableRow).first();
-					var planName = $('a', cell_0).text();
-					var billingPeriodDates = $('span', cell_0).text().split('-');
+					
+					// Plan details
+					var planCell = $('td', tableRow).eq(0);
+					var planName = $('a', planCell).text();
+					var billingPeriodDates = $('span', planCell).text().split('-');
 					var billingPeriodStartDate = $.trim(billingPeriodDates[0]);
 					var billingPeriodEndDate = $.trim(billingPeriodDates[1]);
-					var gigabyteLimit = $('td', tableRow).last().text().split(' ')[0];
-					var gigabytesRemaining;
-					var remainingCell = $('td', tableRow).last().prev();
-					var remainingNumbers = remainingCell.text().split(' ')[0];
-					// Remaining data cell is normally in GB
-					if (substr_count(remainingCell.text(), 'GB') == 1) {
-						gigabytesRemaining = remainingNumbers;
-					// But if there's less than 1 GB remaining, data is displayed in MB
+					
+					// Used
+					var usedCell = $('td', tableRow).eq(1).text().split(' ');
+					if(usedCell[1] == 'GB') {
+						usedGB = usedCell[0];
 					} else {
-						gigabytesRemaining = remainingNumbers / 1024;
+						usedGB = usedCell[0] / 1024;
+					}
+					
+					// Remaining
+					var remainingCell = $('td', tableRow).eq(2).text().split(' ');
+					if(remainingCell[0] == 'N/A') {
+						remainingGB = false;
+					} else if(remainingCell[1] == 'GB') {
+						remainingGB = remainingCell[0];
+					} else {
+						remainingGB = remainingCell[0] / 1024;
+					}
+					
+					// Limit
+					var limitCell = $('td', tableRow).eq(2).text().split(' ');
+					if(limitCell[0] == 'N/A') {
+						limitGB = false;
+					} else {
+						limitGB = limitCell[0];
 					}
 					
 					// See if user has uncapped nights
@@ -224,10 +243,15 @@ function fetchDataUsage () {
 						planName: planName,
 						billingPeriodStartDate: billingPeriodStartDate,
 						billingPeriodEndDate: billingPeriodEndDate,
-						gigabyteLimit: gigabyteLimit,
-						gigabytesRemaining: gigabytesRemaining,
+						limitGB: limitGB,
+						usedGB: usedGB,
+						remainingGB: remainingGB,
 						uncappedNightsEnabled: uncappedNightsEnabled,
-						freeYouTubeEnabled: freeYouTubeEnabled
+						freeYouTubeEnabled: freeYouTubeEnabled,
+						
+						// Legacy (for compatibility)
+						gigabyteLimit: limitGB,
+						gigabytesRemaining: remainingGB
 					};
 					chrome.storage.local.set({ dataService: dataService }, function(){
 						createBrowserActionIcon();
