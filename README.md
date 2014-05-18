@@ -39,9 +39,9 @@ This extension has been tested on:
 
 #### Using a different browser or want to install manually?
 
-1. Right-click [SnapChromium_0.4.0.crx](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.4.0.crx) and save this CRX file to your computer.
+1. Right-click [SnapChromium_0.5.1.crx](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.5.1.crx) and save this CRX file to your computer.
 2. Open your Chromium-based browser's extensions page.
-3. Click and drag the downloaded SnapChromium_0.4.0.crx file from your computer to your browser's extensions page; your browser will say "Drop to install".
+3. Click and drag the downloaded SnapChromium_0.5.1.crx file from your computer to your browser's extensions page; your browser will say "Drop to install".
 4. Follow the installation prompts.
 
 #### Wanting to update?
@@ -63,6 +63,11 @@ Please view the [Help/FAQ wiki page](https://github.com/ChrisNZL/snap-chromium/w
 ---
 
 ### Changelog
+
+v0.5.1 - 18 May 2014
+* If you have Unlimited Data, your usage bar now fills with green to match how far through the current billing period you are.
+* Updated jQuery to v2.1.1.
+* Big thank you to Ed Linklater!
 
 v0.4.0 - 5 July 2013
 * Free YouTube data usage is now shown if you have it.
