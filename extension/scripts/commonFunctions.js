@@ -21,7 +21,7 @@ function getUsageInfoObject (dataService) {
   var barColor;
 	if (dataLimit && dataUsed >= dataLimit) {
 		barColor = 'red';
-	} else if(dataLimit && monthlyEstimate > dataLimit) {
+	} else if (dataLimit && monthlyEstimate > dataLimit) {
 		barColor = 'orange';
 	} else {
 		barColor = 'green';
