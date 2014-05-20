@@ -22,8 +22,8 @@ And a visual progress bar that displays:
 This extension has been tested on:
 * [Chromium](https://download-chromium.appspot.com/) v30
 * [Comodo Dragon](http://www.comodo.com/home/browsers-toolbars/browser.php) v27
-* [Google Chrome](https://www.google.com/intl/en/chrome/browser/) v27
-* [Opera Next](http://www.opera.com/developer/next) v15
+* [Google Chrome](https://www.google.com/intl/en/chrome/browser/) v35
+* [Opera Next](http://www.opera.com/developer/next) v21
 
 ---
 
@@ -33,15 +33,15 @@ This extension has been tested on:
 
 [Download from the Chrome Web Store.](https://chrome.google.com/webstore/detail/snap-usage-monitor/okffoefibimfmcddjbmbfnlbjdpjokkn)
 
-#### Using Opera Next?
+#### Using Opera or Opera Next?
 
 [Download from Opera Add-ons.](https://addons.opera.com/en/extensions/details/snap-usage-monitor/?display=en)
 
 #### Using a different browser or want to install manually?
 
-1. Right-click [SnapChromium_0.5.2.crx](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.5.2.crx) (78 KB) and save this CRX file to your computer.
+1. Right-click [SnapChromium_0.5.3.crx](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.5.3.crx) (78 KB) and save this CRX file to your computer.
 2. Open your Chromium-based browser's extensions page.
-3. Click and drag the downloaded SnapChromium_0.5.2.crx file from your computer to your browser's extensions page; your browser will say "Drop to install".
+3. Click and drag the downloaded SnapChromium_0.5.3.crx file from your computer to your browser's extensions page; your browser will say "Drop to install".
 4. Follow the installation prompts.
 
 #### Wanting to update?
@@ -63,6 +63,9 @@ Please view the [Help/FAQ wiki page](https://github.com/ChrisNZL/snap-chromium/w
 ---
 
 ### Changelog
+
+v0.5.3 - 21 May 2014
+* Fixed a number parsing error.
 
 v0.5.2 - 20 May 2014
 * Fixed data limit being parsed improperly.

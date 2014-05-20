@@ -1,10 +1,10 @@
 // Function to get usage info object, derived StorageArea's dataService object
 function getUsageInfoObject (dataService) {
 	var planName = dataService.planName;
-	var dataLimit = dataService.limitGB;
-	var dataUsed = dataService.usedGB;
+	var dataLimit = parseFloat(dataService.limitGB);
+	var dataUsed = parseFloat(dataService.usedGB);
 	var dataUsedPercentage = dataLimit ? dataUsed / dataLimit : false;
-	var dataRemaining = dataService.remainingGB;
+	var dataRemaining = parseFloat(dataService.remainingGB);
 	var billingPeriodStartTime = strtotime(fixBillingPeriodDate(dataService.billingPeriodStartDate));
 	var billingPeriodEndTime = strtotime(fixBillingPeriodDate(dataService.billingPeriodEndDate));
 	var daysInBillingPeriod = (billingPeriodEndTime - billingPeriodStartTime) / 86400; // (60 seconds * 60 minutes * 24 hours)
@@ -19,7 +19,7 @@ function getUsageInfoObject (dataService) {
 	  
 	// Bar colour logic
   var barColor;
-	if (dataLimit && dataUsed >= dataLimit) {
+	if (dataLimit && dataUsed > dataLimit) {
 		barColor = 'red';
 	} else if (dataLimit && monthlyEstimate > dataLimit) {
 		barColor = 'orange';

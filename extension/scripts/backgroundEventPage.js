@@ -167,8 +167,7 @@ function fetchDataUsage () {
 			
 			// POST user's credentials to the login URL with attribute names that match Snap's login form
 			var loginUrl = 'https://myaccount.snap.net.nz/login/?next=/summary';
-			//var loginUrl = 'http://127.0.0.1/snap/accountSummary.htm';
-			//var loginUrl = '/Snap.html';
+			//var loginUrl = '/Snap.html'; // for testing
 			var postData = {
 				form_Username: credentials.snapUsername,
 				form_Password: credentials.snapPassword,
@@ -210,11 +209,10 @@ function fetchDataUsage () {
 					}
 					
 					// Limit
-					var remainingCell = $('td', tableRow).eq(2).text().split(' ');
-					var limitCell = $('td', tableRow).eq(3).text().split(' ');
 					if (remainingCell[0] == 'N/A') {
 						limitGB = false;
 					} else {
+						var limitCell = $('td', tableRow).eq(3).text().split(' ');
 						limitGB = limitCell[0];
 					}
 					
