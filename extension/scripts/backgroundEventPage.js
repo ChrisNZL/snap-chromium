@@ -158,111 +158,252 @@ function fetchNetworkStatus () {
 function fetchDataUsage () {
 
 	// Only fetch data if credentials are stored
-	chrome.storage.local.get(['snapUsername', 'snapPassword'], function(credentials){
+	chrome.storage.local.get(['snapUsername', 'snapPassword', 'isPrepay'], function(credentials){
 		if (credentialsLookOkay(credentials.snapUsername, credentials.snapPassword)) {
 			chrome.browserAction.setPopup({popup:'/html/browserActionPopup.html'});
 		
 			// Create (or replace existing) alarm to get data usage again in 15 minutes
 			chrome.alarms.create('fetchDataUsageAlarm', { periodInMinutes:15 });
-			
-			// POST user's credentials to the login URL with attribute names that match Snap's login form
-			var loginUrl = 'https://myaccount.snap.net.nz/login/?next=/summary';
-			//var loginUrl = '/Snap.html'; // for testing
-			var postData = {
-				form_Username: credentials.snapUsername,
-				form_Password: credentials.snapPassword,
-				action: 'Login'
-			};
-			var request = $.post(loginUrl, postData)
-			.done(function(result){
-				if ($('div.error', result).length > 0) {
-					console.warn('Oops! Snap\'s server returned the following error:\n\n"'+$('div.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
-				} else if ($('h2:contains("Data Services")', result).length != 1) {
-					console.warn('Oops! Snap Usage Monitor logged into your account okay, but no Data Services were found.');
-				} else {
-					// Logged in successfully! Parse the fetched HTML
-					var tableRow = $('div.service tbody tr', result).first();
-					
-					// Plan details
-					var planCell = $('td', tableRow).eq(0);
-					var planName = $('a', planCell).text();
-					var billingPeriodDates = $('span', planCell).text().split('-');
-					var billingPeriodStartDate = $.trim(billingPeriodDates[0]);
-					var billingPeriodEndDate = $.trim(billingPeriodDates[1]);
-					
-					// Used
-					var usedCell = $('td', tableRow).eq(1).text().split(' ');
-					if(usedCell[1] == 'GB') {
-						usedGB = usedCell[0];
-					} else {
-						usedGB = usedCell[0] / 1024;
+
+			if (credentials.isPrepay && credentials.isPrepay == true) {
+				// POST user's credentials to the login URL with attribute names that match Snap's prepay login form
+				//var loginUrl = 'http://127.0.0.1:8080/Myaccount.html';
+				//var loginUrl = 'https://myaccount.snap.net.nz/login/?next=/summary';
+				//var loginUrl = '/Snap.html'; // for testing
+				var loginUrl = 'https://prepay.snap.net.nz/login_check';
+
+				var postData = {
+					_username: credentials.snapUsername,
+					_password: credentials.snapPassword,
+					_target_path: '/myprepay/'
+				};
+				var request = $.post(loginUrl, postData)
+				.done(function(result){
+					if ($('h2.error', result).length > 0) {
+						console.warn('Oops! Snap\'s prepay server returned the following error:\n\n"'+$('h2.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
 					}
-					
-					// Remaining
-					var remainingCell = $('td', tableRow).eq(2).text().split(' ');
-					if(remainingCell[0] == 'N/A') {
-						remainingGB = false;
-					} else if(remainingCell[1] == 'GB') {
-						remainingGB = remainingCell[0];
-					} else {
-						remainingGB = remainingCell[0] / 1024;
+					else if ($('h1:contains("Account Details")', result).length != 1) {
+						console.warn('Oops! Snap Usage Monitor supposedly logged into your prepay account okay, but no Account Details were found on your account page.');
 					}
-					
-					// Limit
-					if (remainingCell[0] == 'N/A') {
-						limitGB = false;
-					} else {
-						var limitCell = $('td', tableRow).eq(3).text().split(' ');
-						limitGB = limitCell[0];
-					}
-					
-					// See if user has uncapped nights
-					var uncappedNightsEnabled = false;
-					$('div#mod-id > p', result).each(function(){
-						if ($(this).text() == 'You currently have unlimited data between 1am and 7am.') {
-							uncappedNightsEnabled = true;
-						}
-					});
-					
-					// See if user has free YouTube data
-					var freeYouTubeEnabled = false;
-					$('table.zebra > tbody td', result).each(function(){
-						if ($(this).text().trim() == '+ All You Can Eat YouTube') {
-							freeYouTubeEnabled = true;
-						}
-					});
-					
-					// Record the time that this was fetched
-					chrome.storage.local.set({ timeDataWasLastFetched: time() });
-					
-					// Save the data and finish
-					var dataService = {
-						planName: planName,
-						billingPeriodStartDate: billingPeriodStartDate,
-						billingPeriodEndDate: billingPeriodEndDate,
-						limitGB: limitGB,
-						usedGB: usedGB,
-						remainingGB: remainingGB,
-						uncappedNightsEnabled: uncappedNightsEnabled,
-						freeYouTubeEnabled: freeYouTubeEnabled,
+					else {
+						// Logged in successfully! Parse the fetched HTML
+						var tableRow = $('table.view.tablesorter tbody tr', result).first();
 						
-						// Legacy (for compatibility)
-						gigabyteLimit: limitGB,
-						gigabytesRemaining: remainingGB
-					};
-					chrome.storage.local.set({ dataService: dataService }, function(){
-						createBrowserActionIcon();
-						if (dataService.uncappedNightsEnabled == true || dataService.freeYouTubeEnabled == true) {
-							fetchFreeDataUsage(dataService);
+						// Plan details
+						//var planCell = $('td', tableRow).eq(0);
+						var planName = 'Snap Prepay'; //$('a', planCell).text();
+
+						var prepayDateParts = $('td', tableRow).eq(3).text().split('-');
+
+						var prepayDataExpirationDate = prepayDateParts[2]+'-'+prepayDateParts[1]+'-'+prepayDateParts[0] + ' 23:59';
+						//var prepayDataExpirationDate = $('td', tableRow).eq(3).text();
+
+						//var billingPeriodDates = $('span', planCell).text().split('-');
+						//var billingPeriodStartDate = $.trim(billingPeriodDates[0]);
+						//var billingPeriodEndDate = $.trim(billingPeriodDates[1]);
+						
+						// Used
+						var usedCellString = $('td', tableRow).eq(1).text();
+						//console.log(usedCellString.substring(usedCellString.length-2));
+						if (usedCellString.substring(usedCellString.length-2) == 'GB') {
+							usedGB = usedCellString.substring(0, usedCellString.length - 2);
 						}
-						fetchNetworkStatus();
-						chrome.runtime.sendMessage(null, 'Data has been fetched and saved');
-					});
-				}
-			})
-			.fail(function(jqXHR, textStatus, errorThrown){
-				console.warn('Oops! Snap Usage Monitor failed to log in because:\n\n'+errorThrown);
-			});
+						else {
+							usedGB = usedCellString.substring(0, usedCellString.length - 2) / 1024;
+						}
+						
+						// Remaining
+						var remainingCellString = $('td', tableRow).eq(2).text();
+						if (remainingCellString.substring(remainingCellString.length-2) == 'GB') {
+							remainingGB = remainingCellString.substring(0, remainingCellString.length - 2);
+						}
+						else {
+							remainingGB = remainingCellString.substring(0, remainingCellString.length - 2) / 1024;
+						}
+						
+						// Limit
+						limitGB = parseFloat(usedGB) + parseFloat(remainingGB);
+						/*if (remainingCell[0] == 'N/A') {
+							limitGB = false;
+						} else {
+							var limitCell = $('td', tableRow).eq(3).text().split(' ');
+							limitGB = limitCell[0];
+						}*/
+						
+						/*// See if user has uncapped nights
+						var uncappedNightsEnabled = false;
+						$('div#mod-id > p', result).each(function(){
+							if ($(this).text() == 'You currently have unlimited data between 1am and 7am.') {
+								uncappedNightsEnabled = true;
+							}
+						});
+						
+						// See if user has free YouTube data
+						var freeYouTubeEnabled = false;
+						$('table.zebra > tbody td', result).each(function(){
+							if ($(this).text().trim() == '+ All You Can Eat YouTube') {
+								freeYouTubeEnabled = true;
+							}
+						});*/
+
+						// Topups Activated
+						var topupsActivated = 0;
+						var topupTable = $('table.view.tablesorter', result).eq(1);
+						 $('tbody tr', topupTable).each(function(){
+							if (substr_count($('td', this).eq(5).text(), 'Yes')) {
+								topupsActivated++;
+							}
+						});
+						//console.log("topups: " + topupsActivated);
+						
+						// Record the time that this was fetched
+						chrome.storage.local.set({ timeDataWasLastFetched: time() });
+						
+						// Save the data and finish
+						var dataService = {
+							isPrepay: true,
+							planName: planName,
+							prepayDataExpirationDate: prepayDataExpirationDate,
+							//billingPeriodStartDate: billingPeriodStartDate,
+							//billingPeriodEndDate: billingPeriodEndDate,
+							limitGB: limitGB,
+							usedGB: usedGB,
+							remainingGB: remainingGB,
+							//uncappedNightsEnabled: false,
+							//freeYouTubeEnabled: false,
+							
+							// Legacy (for compatibility)
+							//gigabyteLimit: limitGB,
+							//gigabytesRemaining: remainingGB
+
+							prepayTopupsActivated: topupsActivated
+						};
+						chrome.storage.local.set({ dataService: dataService }, function(){
+							createBrowserActionIcon();
+							/*if (dataService.uncappedNightsEnabled == true || dataService.freeYouTubeEnabled == true) {
+								fetchFreeDataUsage(dataService);
+							}*/
+							fetchNetworkStatus();
+							chrome.runtime.sendMessage(null, 'Data has been fetched and saved');
+						});
+					}
+				})
+				.fail(function(jqXHR, textStatus, errorThrown){
+					console.warn('Oops! Snap Usage Monitor failed to log in because:\n\n'+errorThrown);
+				});
+
+
+			}
+			else {
+
+				// POST user's credentials to the login URL with attribute names that match Snap's standard login form
+				var loginUrl = 'https://myaccount.snap.net.nz/login/?next=/summary';
+				//var loginUrl = '/Snap.html'; // for testing
+				var postData = {
+					form_Username: credentials.snapUsername,
+					form_Password: credentials.snapPassword,
+					action: 'Login'
+				};
+				var request = $.post(loginUrl, postData)
+				.done(function(result){
+					if ($('div.error', result).length > 0) {
+						console.warn('Oops! Snap\'s server returned the following error:\n\n"'+$('div.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
+					}
+					else if ($('h2:contains("Data Services")', result).length != 1) {
+						console.warn('Oops! Snap Usage Monitor logged into your account okay, but no Data Services were found.');
+					}
+					else {
+						// Logged in successfully! Parse the fetched HTML
+						var tableRow = $('div.service tbody tr', result).first();
+						
+						// Plan details
+						var planCell = $('td', tableRow).eq(0);
+						var planName = $('a', planCell).text();
+						var billingPeriodDates = $('span', planCell).text().split('-');
+						var billingPeriodStartDate = $.trim(billingPeriodDates[0]);
+						var billingPeriodEndDate = $.trim(billingPeriodDates[1]);
+						
+						// Used
+						var usedCell = $('td', tableRow).eq(1).text().split(' ');
+						if (usedCell[1] == 'GB') {
+							usedGB = usedCell[0];
+						}
+						else {
+							usedGB = usedCell[0] / 1024;
+						}
+						
+						// Remaining
+						var remainingCell = $('td', tableRow).eq(2).text().split(' ');
+						if (remainingCell[0] == 'N/A') {
+							remainingGB = false;
+						}
+						else if (remainingCell[1] == 'GB') {
+							remainingGB = remainingCell[0];
+						}
+						else {
+							remainingGB = remainingCell[0] / 1024;
+						}
+						
+						// Limit
+						if (remainingCell[0] == 'N/A') {
+							limitGB = false;
+						}
+						else {
+							var limitCell = $('td', tableRow).eq(3).text().split(' ');
+							limitGB = limitCell[0];
+						}
+						
+						// See if user has uncapped nights
+						var uncappedNightsEnabled = false;
+						$('div#mod-id > p', result).each(function(){
+							if ($(this).text() == 'You currently have unlimited data between 1am and 7am.') {
+								uncappedNightsEnabled = true;
+							}
+						});
+						
+						// See if user has free YouTube data
+						var freeYouTubeEnabled = false;
+						$('table.zebra > tbody td', result).each(function(){
+							if ($(this).text().trim() == '+ All You Can Eat YouTube') {
+								freeYouTubeEnabled = true;
+							}
+						});
+						
+						// Record the time that this was fetched
+						chrome.storage.local.set({ timeDataWasLastFetched: time() });
+						
+						// Save the data and finish
+						var dataService = {
+							planName: planName,
+							billingPeriodStartDate: billingPeriodStartDate,
+							billingPeriodEndDate: billingPeriodEndDate,
+							limitGB: limitGB,
+							usedGB: usedGB,
+							remainingGB: remainingGB,
+							uncappedNightsEnabled: uncappedNightsEnabled,
+							freeYouTubeEnabled: freeYouTubeEnabled,
+							
+							// Legacy (for compatibility)
+							gigabyteLimit: limitGB,
+							gigabytesRemaining: remainingGB
+						};
+						chrome.storage.local.set({ dataService: dataService }, function(){
+							createBrowserActionIcon();
+							if (dataService.uncappedNightsEnabled == true || dataService.freeYouTubeEnabled == true) {
+								fetchFreeDataUsage(dataService);
+							}
+							fetchNetworkStatus();
+							chrome.runtime.sendMessage(null, 'Data has been fetched and saved');
+						});
+					}
+				})
+				.fail(function(jqXHR, textStatus, errorThrown){
+					console.warn('Oops! Snap Usage Monitor failed to log in because:\n\n'+errorThrown);
+				});
+
+
+			}
+
 		}
 	});
 }

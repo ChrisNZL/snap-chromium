@@ -2,7 +2,8 @@
 function saveCredentials () {
 	chrome.storage.local.set({
 		snapUsername: $('#username').val(),
-		snapPassword: $('#password').val()
+		snapPassword: $('#password').val(),
+		isPrepay: $('#isPrepay').val() == 'true' ? true : false
 	});
 }
 
@@ -55,14 +56,95 @@ $(document).ready(function(){
 		}
 		
 		setTimeout(function(){
-			// POST user's credentials to the login URL with attribute names that match Snap's login form
-			var loginUrl = 'https://myaccount.snap.net.nz/login/?next=/summary';
-			var postData = {
-				form_Username: $('#username').val(),
-				form_Password: $('#password').val(),
-				action: 'Login'
-			};
-			var request = $.post(loginUrl, postData)
+
+			var isPrepay = substr_count($('#username').val().toLowerCase(), '@prepay.snap.net.nz') > 0 ? true : false;
+
+			var loginUrl = '';
+			var postData = {};
+			var request;
+
+			if (isPrepay) {
+
+				$('#isPrepay').val('true');
+
+				loginUrl = 'https://prepay.snap.net.nz/login_check';
+				//loginUrl = 'http://127.0.0.1:8080/Myaccount.html';
+				postData = {
+					_username: $('#username').val(),
+					_password: $('#password').val(),
+					_target_path: '/myprepay/'
+				};
+				request = $.post(loginUrl, postData)
+				.done(function(result){
+
+					if ($('h2.error', result).length > 0) {
+						resetBrowserActionIcon();
+						alert('Oops! Snap\'s prepay server returned the following error:\n\n"'+$('h2.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
+						unfreezeInputFields();
+					}
+					else {
+						saveCredentials();
+						chrome.runtime.getBackgroundPage(function(backgroundPage){
+							backgroundPage.fetchDataUsage();
+							chrome.browserAction.setPopup({popup:'/html/browserActionPopup.html'});
+							$('#loginButton').val('Saved!');
+							setTimeout(function(){
+								//unfreezeInputFields();
+								$('#mainContent, #footer').fadeOut();
+								$('div#allSet').fadeIn();
+							}, 1000);
+						});
+					}
+
+					//console.log(result);
+					/*
+					// If Snap's page returns an error, display the error
+					if ($('div.error', result).length > 0) {
+						resetBrowserActionIcon();
+						alert('Oops! Snap\'s server returned the following error:\n\n"'+$('div.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
+						unfreezeInputFields();
+					} else if ($('h2:contains("Data Services")', result).length != 1) {
+						resetBrowserActionIcon();
+						saveCredentials();
+						alert('Oops! Snap Usage Monitor logged into your account okay, but no Data Services were found.');
+						unfreezeInputFields();
+					} else {
+						// Otherwise we have logged in successfully!
+						saveCredentials();
+						chrome.runtime.getBackgroundPage(function(backgroundPage){
+							backgroundPage.fetchDataUsage();
+							chrome.browserAction.setPopup({popup:'/html/browserActionPopup.html'});
+							$('#loginButton').val('Saved!');
+							setTimeout(function(){
+								//unfreezeInputFields();
+								$('#mainContent, #footer').fadeOut();
+								$('div#allSet').fadeIn();
+							}, 1000);
+						});
+					}
+					*/
+
+
+				})
+				.fail(function(jqXHR, textStatus, errorThrown){
+					resetBrowserActionIcon();
+					alert('Oops! Snap Usage Monitor failed to log in because:\n\n'+errorThrown);
+					unfreezeInputFields();
+				});
+
+			}
+			else {
+
+				$('#isPrepay').val('false');
+
+				// POST user's credentials to the login URL with attribute names that match Snap's login form
+				loginUrl = 'https://myaccount.snap.net.nz/login/?next=/summary';
+				postData = {
+					form_Username: $('#username').val(),
+					form_Password: $('#password').val(),
+					action: 'Login'
+				};
+				request = $.post(loginUrl, postData)
 				.done(function(result){
 					// If Snap's page returns an error, display the error
 					if ($('div.error', result).length > 0) {
@@ -94,7 +176,11 @@ $(document).ready(function(){
 					alert('Oops! Snap Usage Monitor failed to log in because:\n\n'+errorThrown);
 					unfreezeInputFields();
 				});
-			}, 400);
+
+			}
+
+		}, 400);
+
 		return false;
 	});
 	

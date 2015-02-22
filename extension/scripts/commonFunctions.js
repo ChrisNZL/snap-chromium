@@ -1,19 +1,41 @@
 // Function to get usage info object, derived StorageArea's dataService object
 function getUsageInfoObject (dataService) {
+  //console.log(dataService);
+  var isPrepay = dataService.isPrepay;
 	var planName = dataService.planName;
 	var dataLimit = parseFloat(dataService.limitGB);
 	var dataUsed = parseFloat(dataService.usedGB);
 	var dataUsedPercentage = dataLimit ? dataUsed / dataLimit : false;
 	var dataRemaining = parseFloat(dataService.remainingGB);
-	var billingPeriodStartTime = strtotime(fixBillingPeriodDate(dataService.billingPeriodStartDate));
-	var billingPeriodEndTime = strtotime(fixBillingPeriodDate(dataService.billingPeriodEndDate));
+
+  if (isPrepay == true) {
+    var billingPeriodEndTime = strtotime(dataService.prepayDataExpirationDate);
+    //console.log(billingPeriodEndTime);
+    var billingPeriodStartTime = billingPeriodEndTime - 2592000; // 60 seconds * 60 minutes * 24 hours * 30 days
+  }
+  else {
+    var billingPeriodStartTime = strtotime(fixBillingPeriodDate(dataService.billingPeriodStartDate));
+    var billingPeriodEndTime = strtotime(fixBillingPeriodDate(dataService.billingPeriodEndDate));
+  }
+	
 	var daysInBillingPeriod = (billingPeriodEndTime - billingPeriodStartTime) / 86400; // (60 seconds * 60 minutes * 24 hours)
 	var daysElapsed = (time() - billingPeriodStartTime) / 86400;
 	var daysElapsedPercentage = daysElapsed / daysInBillingPeriod;
+
+
+  /*if (isPrepay == true && dataService.prepayTopupsActivated && dataService.prepayTopupsActivated > 1) {
+
+  }*/
+
 	var secondsRemaining = billingPeriodEndTime - time();
 	var hoursRemaining = secondsRemaining / 3600; // (60 seconds * 60 minutes)
 	var daysRemaining = secondsRemaining / 86400;
-	var averageDailyUsage = dataUsed / daysElapsed;
+
+  var averageDailyUsage = dataUsed / daysElapsed;
+  /*if (isPrepay == true) {
+    averageDailyUsage = (dataUsed / dataService.prepayTopupsActivated) / daysElapsed;
+  }*/
+
 	var monthlyEstimate = averageDailyUsage * daysInBillingPeriod;
 	var suggestedDailyUsage = dataLimit ? Math.min(dataRemaining / daysRemaining, dataRemaining) : false;
 	  
@@ -28,6 +50,7 @@ function getUsageInfoObject (dataService) {
 	}
 	
 	return {
+    isPrepay: isPrepay,
 		planName: planName,
 		dataLimit: dataLimit,
 		dataUsed: dataUsed,

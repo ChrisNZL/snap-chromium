@@ -21,7 +21,7 @@
 							<td id="dataLimit"></td>
 						</tr>-->
 						<tr class="data">
-							<td><span class="tooltip" title="Regular data used that counts towards your monthly cap">Data used:</span></td>
+							<td><span class="tooltip" id="dataUsedSpan" title="Regular data used that counts towards your monthly cap">Data used:</span></td>
 							<td id="dataUsed">?? GB</td>
 						</tr>
 						<tr class="data">
@@ -40,12 +40,12 @@ This data does not count towards your monthly cap and is not part of the calcula
 							<td id="youTubeDataUsed">?? GB</td>
 						</tr>
 						
-						<tr class="estimates">
+						<tr class="estimates averageDailyUsage">
 							<td><span class="tooltip" title="Days elapsed &divide; Data used">Average daily usage:</span></td>
 							<td id="averageDailyUsage">?? GB</td>
 						</tr>
-						<tr class="estimates">
-							<td><span class="tooltip" title="Average daily usage &times; Days in billing period">Billing period estimate:</span></td>
+						<tr class="estimates monthlyEstimate">
+							<td><span class="tooltip" id="monthlyEstimateSpan" title="Average daily usage &times; Days in billing period" prepayTitle="Average daily usage &times; 30 days">Billing period estimate:</span></td>
 							<td id="monthlyEstimate">?? GB</td>
 						</tr>
 						<tr class="estimates suggestedDailyUsage">

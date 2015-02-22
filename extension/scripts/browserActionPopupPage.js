@@ -12,6 +12,10 @@ function displayUsageInfo () {
 		
 		// Plan name -- hide "& Snap Plus" if it's there because it makes the plan name rather long
 		$('#planName a').text(str_replace('& Snap Plus', '', u.planName));
+
+		if (u.isPrepay) {
+			$('#planName a').attr('href', 'https://prepay.snap.net.nz/myprepay/').attr('title', 'View your Snap Prepay account summary');
+		}
 		
 		// Normal data
 		//$('#dataLimit').text(gbFormat(u.dataLimit));
@@ -22,6 +26,10 @@ function displayUsageInfo () {
 			$('#dataRemaining').html('<span class="tooltip">Unlimited</span>').attr('title', "You have Unlimited Data.");
 		}
 		
+		if (u.isPrepay) {
+			$('#dataUsedSpan').attr('title', '').removeClass('tooltip');
+		}
+
 		// Offpeak data
 		if (dataService.uncappedNightsEnabled == true) {
 			$('#offpeakDataUsed').text(gbFormat(storage.offpeakDataUsed));
@@ -39,12 +47,23 @@ function displayUsageInfo () {
 		}
 
 		// Estimates
-		$('#averageDailyUsage').html('<span class="tooltip">'+gbFormat(u.averageDailyUsage)+'</span>');
-		var averageDailyKB = u.averageDailyUsage * 1048576;
-		var averageDailyKBPerSecond = averageDailyKB / 86400;
-		$('#averageDailyUsage').attr('title', number_format(averageDailyKBPerSecond, 1) + ' KB/s');
-		
-		$('#monthlyEstimate').text(gbFormat(u.monthlyEstimate));
+		//if (u.isPrepay) {
+		//	$('tr.averageDailyUsage').remove();
+		//	$('tr.monthlyEstimate').remove();
+		//}
+		//else {
+			$('#averageDailyUsage').html('<span class="tooltip">'+gbFormat(u.averageDailyUsage)+'</span>');
+			var averageDailyKB = u.averageDailyUsage * 1048576;
+			var averageDailyKBPerSecond = averageDailyKB / 86400;
+			$('#averageDailyUsage').attr('title', number_format(averageDailyKBPerSecond, 1) + ' KB/s');
+			
+			$('#monthlyEstimate').text(gbFormat(u.monthlyEstimate));
+		//}
+
+		if (u.isPrepay) {
+			$('#monthlyEstimateSpan').text('Prepaid period estimate:').attr('title', $('#monthlyEstimateSpan').attr('prepayTitle'));
+		}
+
 		if (u.dataLimit) {
 			$('#suggestedDailyUsage').html('<span class="tooltip">'+gbFormat(u.suggestedDailyUsage)+'</span>');
 			var kbRemaining = u.dataRemaining * 1048576; // 1 GB = 1048576 KB
@@ -95,10 +114,11 @@ function displayUsageInfo () {
 		
 		// Time remaining tooltip
 		var timeTooltipText;
+		var resetsText = u.isPrepay ? 'Your data is set to expire' : 'Your billing period resets';
 		if (date('j F', u.billingPeriodEndTime) == date('j F')) {
-			timeTooltipText = 'Your billing period resets today @ '+date('g:ia', u.billingPeriodEndTime)+'.';
+			timeTooltipText = resetsText + ' today @ '+date('g:ia', u.billingPeriodEndTime)+'.';
 		} else {
-			timeTooltipText = 'Your billing period resets on '+date('j F Y @ g:ia', u.billingPeriodEndTime)+'.';
+			timeTooltipText = resetsText + ' on '+date('j F Y @ g:ia', u.billingPeriodEndTime)+'.';
 		}
 			
 		$('#timeRemaining').html('<span class="tooltip" title="'+timeTooltipText+'">'+$('#timeRemaining').text()+'</span>');

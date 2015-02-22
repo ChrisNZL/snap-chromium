@@ -1,6 +1,6 @@
 {
 	"name": "Snap Usage Monitor",
-	"version": "0.5.3",
+	"version": "0.6.0",
 	"manifest_version": 2,
 	"description": "Easily monitor your Snap data usage. (Chromium extension)",
 	"browser_action": {
@@ -30,6 +30,7 @@
 		"alarms",
 		"storage",
 		"https://myaccount.snap.net.nz/",
+		"https://prepay.snap.net.nz/",
 		"http://www.snap.net.nz/"
 	],
 	"homepage_url": "https://github.com/ChrisNZL/snap-chromium",

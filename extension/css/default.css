@@ -13,7 +13,7 @@ body#optionsPageBody td { padding:5px; }
 body#optionsPageBody h1 { padding:0; margin:0 0 10px 0; font:menu; font-weight:bold; letter-spacing:0px; font-size:20px; line-height:20px; }
 body#optionsPageBody div#mainContent { padding:20px 20px 5px 20px; background-color:#fff; border-radius:7px; box-shadow:0px 1px 5px rgba(0,0,0,.35);
 	display:inline-block; margin:0 auto; white-space:nowrap; }
-body#optionsPageBody div#footer { padding:20px; max-width:800px; margin:0 auto; color:#919191; font-size:90%; text-shadow:0 1px 0 #e4e4e4; }
+body#optionsPageBody div#footer { padding:20px; max-width:800px; margin:0 auto; color:#919191; font-size:140%; text-shadow:0 1px 0 #e4e4e4; }
 body#optionsPageBody input[type='text'], body#optionsPageBody input[type='password'] { width: 150px; }
 body#optionsPageBody input[type='submit'] { padding:2px 12px 3px 12px; }
 body#optionsPageBody td.buttonCell { text-align:right; }
