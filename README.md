@@ -4,7 +4,7 @@
 
 ![](http://iforce.co.nz/i/1ahpkr4f.rez.png)
 
-If [Snap](http://www.snap.net.nz/) is your ISP in New Zealand, this extension lets you view details of your data usage with the click of a button:
+If you're a [Snap customer](http://www.snap.net.nz/) or a [Snap Prepay customer](http://prepay.snap.net.nz/) in New Zealand, this extension lets you view details of your data usage with the click of a button:
 * Data used
 * Data remaining
 * Off-peak data used (if you have Uncapped Nights from 1am-7am)
@@ -33,15 +33,11 @@ This extension has been tested on:
 
 [Download from the Chrome Web Store.](https://chrome.google.com/webstore/detail/snap-usage-monitor/okffoefibimfmcddjbmbfnlbjdpjokkn)
 
-#### Using Opera or Opera Next?
-
-[Download from Opera Add-ons.](https://addons.opera.com/en/extensions/details/snap-usage-monitor/?display=en)
-
 #### Using a different browser or want to install manually?
 
-1. Right-click [SnapChromium_0.5.3.crx](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.5.3.crx) (78 KB) and save this CRX file to your computer.
+1. Right-click [SnapChromium_0.6.0.crx](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.6.0.crx) (78 KB) and save this CRX file to your computer.
 2. Open your Chromium-based browser's extensions page.
-3. Click and drag the downloaded SnapChromium_0.5.3.crx file from your computer to your browser's extensions page; your browser will say "Drop to install".
+3. Click and drag the downloaded SnapChromium_0.6.0.crx file from your computer to your browser's extensions page; your browser will say "Drop to install".
 4. Follow the installation prompts.
 
 #### Wanting to update?
@@ -63,6 +59,9 @@ Please view the [Help/FAQ wiki page](https://github.com/ChrisNZL/snap-chromium/w
 ---
 
 ### Changelog
+
+v0.6.0 - 6 April 2015
+* Added support for Snap Prepay; use your full xxxxx@prepay.snap.net.nz username when logging in.
 
 v0.5.3 - 21 May 2014
 * Fixed a number parsing error.
