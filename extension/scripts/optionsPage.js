@@ -68,7 +68,14 @@ $(document).ready(function(){
 				$('#isPrepay').val('true');
 
 				loginUrl = 'https://prepay.snap.net.nz/login_check';
-				//loginUrl = 'http://127.0.0.1:8080/Myaccount.html';
+
+
+
+				//loginUrl = '/Snap.html';
+
+
+
+
 				postData = {
 					_username: $('#username').val(),
 					_password: $('#password').val(),

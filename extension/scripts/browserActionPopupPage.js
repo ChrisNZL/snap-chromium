@@ -3,7 +3,9 @@ function displayUsageInfo () {
 	// Populate pop-up page with data
 	chrome.storage.local.get(['dataService', 'timeDataWasLastFetched', 'offpeakDataUsed', 'youTubeDataUsed'], function(storage){
 		var dataService = storage.dataService;
+		//console.log(dataService);
 		var u = getUsageInfoObject(dataService);
+		//console.log(u);
 
 		// Function to display a number nicely in GB
 		var gbFormat = function (number) {

@@ -169,7 +169,11 @@ function fetchDataUsage () {
 				// POST user's credentials to the login URL with attribute names that match Snap's prepay login form
 				//var loginUrl = 'http://127.0.0.1:8080/Myaccount.html';
 				//var loginUrl = 'https://myaccount.snap.net.nz/login/?next=/summary';
+				
+
 				//var loginUrl = '/Snap.html'; // for testing
+
+
 				var loginUrl = 'https://prepay.snap.net.nz/login_check';
 
 				var postData = {
@@ -255,6 +259,20 @@ function fetchDataUsage () {
 							}
 						});
 						//console.log("topups: " + topupsActivated);
+
+
+						// Prepay Used Past 30 days
+						var prepayGigabytesUsedPast30Days = 0;
+						$('div#chart_div', result).next('table').find('b').each(function(){
+							//console.log($(this).text());
+							var thisBoldUsage = $(this).text();
+							//console.log(thisBoldUsage);
+							prepayGigabytesUsedPast30Days += parseFloat(thisBoldUsage.substr(0, thisBoldUsage.length-2));
+						});
+						//console.log(prepayGigabytesUsedPast30Days);
+						//var prepayGigabytesUsedPast30Days = $('div#chart_div', result).next('table')
+
+
 						
 						// Record the time that this was fetched
 						chrome.storage.local.set({ timeDataWasLastFetched: time() });
@@ -276,7 +294,8 @@ function fetchDataUsage () {
 							//gigabyteLimit: limitGB,
 							//gigabytesRemaining: remainingGB
 
-							prepayTopupsActivated: topupsActivated
+							prepayTopupsActivated: topupsActivated,
+							prepayGigabytesUsedPast30Days: prepayGigabytesUsedPast30Days
 						};
 						chrome.storage.local.set({ dataService: dataService }, function(){
 							createBrowserActionIcon();
@@ -352,7 +371,7 @@ function fetchDataUsage () {
 							var limitCell = $('td', tableRow).eq(3).text().split(' ');
 							limitGB = limitCell[0];
 						}
-						
+												
 						// See if user has uncapped nights
 						var uncappedNightsEnabled = false;
 						$('div#mod-id > p', result).each(function(){

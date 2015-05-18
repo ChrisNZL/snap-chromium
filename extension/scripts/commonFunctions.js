@@ -20,6 +20,9 @@ function getUsageInfoObject (dataService) {
 	
 	var daysInBillingPeriod = (billingPeriodEndTime - billingPeriodStartTime) / 86400; // (60 seconds * 60 minutes * 24 hours)
 	var daysElapsed = (time() - billingPeriodStartTime) / 86400;
+  if (daysElapsed < 0) {
+    daysElapsed = 0;
+  }
 	var daysElapsedPercentage = daysElapsed / daysInBillingPeriod;
 
 
@@ -31,7 +34,7 @@ function getUsageInfoObject (dataService) {
 	var hoursRemaining = secondsRemaining / 3600; // (60 seconds * 60 minutes)
 	var daysRemaining = secondsRemaining / 86400;
 
-  var averageDailyUsage = dataUsed / daysElapsed;
+  var averageDailyUsage = isPrepay && dataService.prepayTopupsActivated > 1 ? dataService.prepayGigabytesUsedPast30Days / 30 : dataUsed / daysElapsed;
   /*if (isPrepay == true) {
     averageDailyUsage = (dataUsed / dataService.prepayTopupsActivated) / daysElapsed;
   }*/
@@ -51,6 +54,8 @@ function getUsageInfoObject (dataService) {
 	
 	return {
     isPrepay: isPrepay,
+    prepayTopupsActivated: dataService.prepayTopupsActivated,
+    prepayGigabytesUsedPast30Days: dataService.prepayGigabytesUsedPast30Days,
 		planName: planName,
 		dataLimit: dataLimit,
 		dataUsed: dataUsed,
