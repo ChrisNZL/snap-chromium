@@ -1,10 +1,10 @@
-### Snap Usage Monitor extension for Chromium-based browsers
+### 2degrees Broadband Usage Monitor extension for Chrome
 
-**Requires a Chromium-based browser built on Chromium version 27 or higher.**
+*Previously known as Snap Usage Monitor.*
 
-![](http://iforce.co.nz/i/1ahpkr4f.rez.png)
+![](http://i.imgur.com/v88qYcb.png) ![](http://i.imgur.com/tExcgLi.png)
 
-If you're a [Snap customer](http://www.snap.net.nz/) or a [Snap Prepay customer](http://prepay.snap.net.nz/) in New Zealand, this extension lets you view details of your data usage with the click of a button:
+If you're a [2degrees Broadband](https://www.2degreesmobile.co.nz/broadband) or a [Snap Prepay](https://prepay.2degreesbroadband.co.nz/) customer in New Zealand, this extension lets you view details of your data usage with the click of a button:
 * Data used
 * Data remaining
 * Off-peak data used (if you have Uncapped Nights from 1am-7am)
@@ -19,26 +19,12 @@ And a visual progress bar that displays:
 * Percentage of data used towards your limit
 * How far through the billing period you are
 
-This extension has been tested on:
-* [Chromium](https://download-chromium.appspot.com/) v30
-* [Comodo Dragon](http://www.comodo.com/home/browsers-toolbars/browser.php) v27
-* [Google Chrome](https://www.google.com/intl/en/chrome/browser/) v35
-* [Opera Next](http://www.opera.com/developer/next) v21
-
 ---
 
 ### Installation instructions
 
-#### Using Google Chrome or Chromium?
+[Download from the Chrome Web Store.](https://chrome.google.com/webstore/detail/okffoefibimfmcddjbmbfnlbjdpjokkn)
 
-[Download from the Chrome Web Store.](https://chrome.google.com/webstore/detail/snap-usage-monitor/okffoefibimfmcddjbmbfnlbjdpjokkn)
-
-#### Using a different browser or want to install manually?
-
-1. Right-click [SnapChromium_0.6.0.crx](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/SnapChromium_0.6.0.crx) (78 KB) and save this CRX file to your computer.
-2. Open your Chromium-based browser's extensions page.
-3. Click and drag the downloaded SnapChromium_0.6.0.crx file from your computer to your browser's extensions page; your browser will say "Drop to install".
-4. Follow the installation prompts.
 
 #### Wanting to update?
 
@@ -47,8 +33,6 @@ If your browser hasn't automatically updated the extension for you, you can forc
 1. Go to your browser's extensions page.
 2. Select "Developer Mode".
 3. Click the "Update extensions now" button.
-
-Please note that the Opera Add-ons site can take a couple of days to review and publish updated versions.
 
 ---
 
@@ -59,6 +43,9 @@ Please view the [Help/FAQ wiki page](https://github.com/ChrisNZL/snap-chromium/w
 ---
 
 ### Changelog
+
+v0.7.0 - 28 July 2015
+* Embraced the 2degrees Broadband launch. RIP Snap.
 
 v0.6.0 - 6 April 2015
 * Added support for Snap Prepay; use your full xxxxx@prepay.snap.net.nz username when logging in.
@@ -87,6 +74,6 @@ the pop-up window be too wide.
 
 ---
 
-This extension is unofficial and not maintained by Snap.
+This extension is unofficial and not maintained by 2degrees.
 
 If you need assistance, tweet me on Twitter [@ChrisNZL](https://twitter.com/ChrisNZL), or email me chrisnzl@snap.net.nz - thanks!
