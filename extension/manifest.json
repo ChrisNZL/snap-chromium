@@ -1,13 +1,13 @@
 {
-	"name": "Snap Usage Monitor",
-	"version": "0.6.1",
+	"name": "2degrees Broadband Usage Monitor",
+	"version": "0.7.0",
 	"manifest_version": 2,
-	"description": "Easily monitor your Snap data usage.",
+	"description": "Easily monitor your 2degrees Broadband data usage.",
 	"browser_action": {
 		"default_icon": {
 			"19": "img/browserAction/base.png"
 		},
-		"default_title": "Snap Usage Monitor",
+		"default_title": "2degrees Broadband Usage Monitor",
 		"default_popup": "html/browserActionPopup_requireCredentials.html"
 	},
 	"background": {
@@ -29,9 +29,9 @@
 	"permissions": [
 		"alarms",
 		"storage",
-		"https://myaccount.snap.net.nz/",
-		"https://prepay.snap.net.nz/",
-		"http://www.snap.net.nz/"
+		"https://secure.2degreesbroadband.co.nz/",
+		"https://prepay.2degreesbroadband.co.nz/"//,
+		//"http://www.snap.net.nz/"
 	],
 	"homepage_url": "https://github.com/ChrisNZL/snap-chromium",
 	"update_url": "https://raw.github.com/ChrisNZL/snap-chromium/master/updateManifest.xml"

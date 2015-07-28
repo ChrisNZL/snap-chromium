@@ -49,7 +49,7 @@ $(document).ready(function(){
 		
 		// Require both username and password fields
 		if ($('#username').val().length == 0 || $('#password').val().length == 0) {
-			alert('Oops! Please enter your Snap username and password.');
+			alert('Oops! Please enter your 2degrees Broadband username and password.');
 			unfreezeInputFields();
 			$('#username').val().length == 0 ? $('#username').focus() : $('#password').focus();
 			return false;
@@ -67,7 +67,7 @@ $(document).ready(function(){
 
 				$('#isPrepay').val('true');
 
-				loginUrl = 'https://prepay.snap.net.nz/login_check';
+				loginUrl = 'https://prepay.2degreesbroadband.co.nz/login_check';
 
 
 
@@ -135,7 +135,7 @@ $(document).ready(function(){
 				})
 				.fail(function(jqXHR, textStatus, errorThrown){
 					resetBrowserActionIcon();
-					alert('Oops! Snap Usage Monitor failed to log in because:\n\n'+errorThrown);
+					alert('Oops! 2degrees Broadband Usage Monitor failed to log in because:\n\n'+errorThrown);
 					unfreezeInputFields();
 				});
 
@@ -145,7 +145,7 @@ $(document).ready(function(){
 				$('#isPrepay').val('false');
 
 				// POST user's credentials to the login URL with attribute names that match Snap's login form
-				loginUrl = 'https://myaccount.snap.net.nz/login/?next=/summary';
+				loginUrl = 'https://secure.2degreesbroadband.co.nz/login/?next=/summary';
 				postData = {
 					form_Username: $('#username').val(),
 					form_Password: $('#password').val(),
@@ -156,12 +156,12 @@ $(document).ready(function(){
 					// If Snap's page returns an error, display the error
 					if ($('div.error', result).length > 0) {
 						resetBrowserActionIcon();
-						alert('Oops! Snap\'s server returned the following error:\n\n"'+$('div.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
+						alert('Oops! 2degrees\' server returned the following error:\n\n"'+$('div.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
 						unfreezeInputFields();
 					} else if ($('h2:contains("Data Services")', result).length != 1) {
 						resetBrowserActionIcon();
 						saveCredentials();
-						alert('Oops! Snap Usage Monitor logged into your account okay, but no Data Services were found.');
+						alert('Oops! 2degrees Broadband Usage Monitor logged into your account okay, but no Data Services were found.');
 						unfreezeInputFields();
 					} else {
 						// Otherwise we have logged in successfully!
@@ -180,7 +180,7 @@ $(document).ready(function(){
 				})
 				.fail(function(jqXHR, textStatus, errorThrown){
 					resetBrowserActionIcon();
-					alert('Oops! Snap Usage Monitor failed to log in because:\n\n'+errorThrown);
+					alert('Oops! 2degrees Broadband Usage Monitor failed to log in because:\n\n'+errorThrown);
 					unfreezeInputFields();
 				});
 

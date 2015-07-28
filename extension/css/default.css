@@ -6,7 +6,7 @@ table { border-collapse:collapse; padding:0; margin:0; }
 /* OPTIONS PAGE */
 body#optionsPageBody { margin:20px; background-color:#d1d1d1; }
 #header center { color:#808080; }
-div#header { margin-bottom:17px; padding:0 30px 10px 30px; border-bottom:2px solid #f46320; }
+div#header { margin-bottom:17px; padding:0 30px 10px 30px; border-bottom:2px solid #00a7e5; }
 body#optionsPageBody center { font-size:90%; }
 body#optionsPageBody * { font-size:12px; }
 body#optionsPageBody td { padding:5px; }
@@ -26,7 +26,7 @@ body#browserActionPopupBody a:focus { outline: none; }
 body#browserActionPopupBody a#snapLogo { padding-right:2px; }
 body#browserActionPopupBody { background-color:#fff; padding-top:1px; padding-right:1px; }
 body#browserActionPopupBody td { white-space:nowrap; font-size:12px; vertical-align:top; }
-body#browserActionPopupBody tr td:first-child { padding-right:11px; }
+body#browserActionPopupBody tr td:first-child { padding-right:9px; }
 body#browserActionPopupBody tr td:first-child + td { text-align:right; }
 body#browserActionPopupBody td#planName { font-weight:bold; }
 body#browserActionPopupBody td#planName a { color:inherit; font-weight:bold; font-size:13px; text-decoration:none; }

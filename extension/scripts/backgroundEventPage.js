@@ -85,7 +85,8 @@ function createBrowserActionIcon () {
 
 // Function to fetch Network Status info
 function fetchNetworkStatus () {
-	var networkStatusUrl = 'http://www.snap.net.nz/support/network-status';
+	// Turning this off for now
+	/*var networkStatusUrl = 'http://www.snap.net.nz/support/network-status';
 	var request = $.get(networkStatusUrl, function(){})
 		.done(function(result){
 			$('p', result).each(function(){
@@ -151,7 +152,7 @@ function fetchNetworkStatus () {
 		})
 		.fail(function(jqXHR, textStatus, errorThrown){
 			console.warn('Oops! Snap Usage Monitor failed to fetch the network status page because:\n\n'+errorThrown);
-		});
+		});*/
 }
 
 // Function to fetch data usage info from Snap
@@ -174,7 +175,7 @@ function fetchDataUsage () {
 				//var loginUrl = '/Snap.html'; // for testing
 
 
-				var loginUrl = 'https://prepay.snap.net.nz/login_check';
+				var loginUrl = 'https://prepay.2degreesbroadband.co.nz/login_check';
 
 				var postData = {
 					_username: credentials.snapUsername,
@@ -187,7 +188,7 @@ function fetchDataUsage () {
 						console.warn('Oops! Snap\'s prepay server returned the following error:\n\n"'+$('h2.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
 					}
 					else if ($('h1:contains("Account Details")', result).length != 1) {
-						console.warn('Oops! Snap Usage Monitor supposedly logged into your prepay account okay, but no Account Details were found on your account page.');
+						console.warn('Oops! 2degrees Broadband Usage Monitor supposedly logged into your prepay account okay, but no Account Details were found on your account page.');
 					}
 					else {
 						// Logged in successfully! Parse the fetched HTML
@@ -308,7 +309,7 @@ function fetchDataUsage () {
 					}
 				})
 				.fail(function(jqXHR, textStatus, errorThrown){
-					console.warn('Oops! Snap Usage Monitor failed to log in because:\n\n'+errorThrown);
+					console.warn('Oops! 2degrees Broadband Usage Monitor failed to log in because:\n\n'+errorThrown);
 				});
 
 
@@ -316,7 +317,7 @@ function fetchDataUsage () {
 			else {
 
 				// POST user's credentials to the login URL with attribute names that match Snap's standard login form
-				var loginUrl = 'https://myaccount.snap.net.nz/login/?next=/summary';
+				var loginUrl = 'https://secure.2degreesbroadband.co.nz/login/?next=/summary';
 				//var loginUrl = '/Snap.html'; // for testing
 				var postData = {
 					form_Username: credentials.snapUsername,
@@ -326,10 +327,10 @@ function fetchDataUsage () {
 				var request = $.post(loginUrl, postData)
 				.done(function(result){
 					if ($('div.error', result).length > 0) {
-						console.warn('Oops! Snap\'s server returned the following error:\n\n"'+$('div.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
+						console.warn('Oops! 2degrees\' server returned the following error:\n\n"'+$('div.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
 					}
 					else if ($('h2:contains("Data Services")', result).length != 1) {
-						console.warn('Oops! Snap Usage Monitor logged into your account okay, but no Data Services were found.');
+						console.warn('Oops! 2degrees Broadband Usage Monitor logged into your account okay, but no Data Services were found.');
 					}
 					else {
 						// Logged in successfully! Parse the fetched HTML
@@ -417,7 +418,7 @@ function fetchDataUsage () {
 					}
 				})
 				.fail(function(jqXHR, textStatus, errorThrown){
-					console.warn('Oops! Snap Usage Monitor failed to log in because:\n\n'+errorThrown);
+					console.warn('Oops! 2degrees Broadband Usage Monitor failed to log in because:\n\n'+errorThrown);
 				});
 
 
@@ -439,7 +440,7 @@ function fetchFreeDataUsage (dataService) {
 	};
 
 	var u = getUsageInfoObject(dataService);
-	var dailyBreakdownUrl = 'https://myaccount.snap.net.nz/summary/dynamic/daily/?date=' + date('Y-m-d%20H:i:s', u.billingPeriodStartTime);
+	var dailyBreakdownUrl = 'https://secure.2degreesbroadband.co.nz/summary/dynamic/daily/?date=' + date('Y-m-d%20H:i:s', u.billingPeriodStartTime);
 	//var dailyBreakdownUrl = 'http://127.0.0.1/snap/dailyBreakdown.htm';
 	$.get(dailyBreakdownUrl)
 	.done(function(result){
@@ -457,7 +458,7 @@ function fetchFreeDataUsage (dataService) {
 		});
 	})
 	.fail(function(jqXHR, textStatus, errorThrown){
-		console.warn('Oops! Snap Usage Monitor failed to fetch offpeak data usage because:\n\n'+errorThrown);
+		console.warn('Oops! 2degrees Broadband Usage Monitor failed to fetch offpeak data usage because:\n\n'+errorThrown);
 	});
 }
 
