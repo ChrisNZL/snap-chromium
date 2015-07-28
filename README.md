@@ -4,7 +4,7 @@
 
 ![](http://i.imgur.com/v88qYcb.png) ![](http://i.imgur.com/tExcgLi.png)
 
-If you're a [2degrees Broadband](https://www.2degreesmobile.co.nz/broadband) or a [Snap Prepay](https://prepay.2degreesbroadband.co.nz/) customer in New Zealand, this extension lets you view details of your data usage with the click of a button:
+If you're a [2degrees Broadband](https://www.2degreesmobile.co.nz/broadband) or [Snap Prepay](https://prepay.2degreesbroadband.co.nz/) customer in New Zealand, this extension lets you view details of your data usage with the click of a button:
 * Data used
 * Data remaining
 * Off-peak data used (if you have Uncapped Nights from 1am-7am)
