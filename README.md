@@ -42,6 +42,8 @@ Please view the [Help/FAQ wiki page](https://github.com/ChrisNZL/snap-chromium/w
 ---
 
 ### Changelog
+v0.7.1 - 4 September 2015
+* Fixed some issues with the new 2degrees Prepay Broadband page.
 
 v0.7.0 - 28 July 2015
 * Embraced the 2degrees Broadband launch. RIP Snap.
