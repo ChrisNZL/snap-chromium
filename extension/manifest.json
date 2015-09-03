@@ -1,6 +1,6 @@
 {
 	"name": "2degrees Broadband Usage Monitor",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"manifest_version": 2,
 	"description": "Easily monitor your 2degrees Broadband data usage.",
 	"browser_action": {
@@ -30,9 +30,6 @@
 		"alarms",
 		"storage",
 		"https://secure.2degreesbroadband.co.nz/",
-		"https://prepay.2degreesbroadband.co.nz/"//,
-		//"http://www.snap.net.nz/"
-	],
-	"homepage_url": "https://github.com/ChrisNZL/snap-chromium",
-	"update_url": "https://raw.github.com/ChrisNZL/snap-chromium/master/updateManifest.xml"
+		"https://prepay.2degreesbroadband.co.nz/"
+	]
 }

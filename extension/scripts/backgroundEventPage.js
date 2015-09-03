@@ -172,13 +172,14 @@ function fetchDataUsage () {
 				//var loginUrl = 'https://myaccount.snap.net.nz/login/?next=/summary';
 				
 
-				//var loginUrl = '/Snap.html'; // for testing
+				//var loginUrl = '/TEST.html'; // for testing
 
 
 				var loginUrl = 'https://prepay.2degreesbroadband.co.nz/login_check';
 
 				var postData = {
 					_username: credentials.snapUsername,
+					_username1: credentials.snapUsername,
 					_password: credentials.snapPassword,
 					_target_path: '/myprepay/'
 				};
@@ -187,16 +188,17 @@ function fetchDataUsage () {
 					if ($('h2.error', result).length > 0) {
 						console.warn('Oops! Snap\'s prepay server returned the following error:\n\n"'+$('h2.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
 					}
-					else if ($('h1:contains("Account Details")', result).length != 1) {
+					else if ($('h2:contains("Account Details")', result).length != 1) {
 						console.warn('Oops! 2degrees Broadband Usage Monitor supposedly logged into your prepay account okay, but no Account Details were found on your account page.');
 					}
 					else {
 						// Logged in successfully! Parse the fetched HTML
-						var tableRow = $('table.view.tablesorter tbody tr', result).first();
+						//var tableRow = $('table.view.tablesorter tbody tr', result).first();
+						var tableRow = $('tbody tr', result).first();
 						
 						// Plan details
 						//var planCell = $('td', tableRow).eq(0);
-						var planName = 'Snap Prepay'; //$('a', planCell).text();
+						var planName = '2degrees Prepay Broadband'; //$('a', planCell).text();
 
 						var prepayDateParts = $('td', tableRow).eq(3).text().split('-');
 
@@ -253,7 +255,8 @@ function fetchDataUsage () {
 
 						// Topups Activated
 						var topupsActivated = 0;
-						var topupTable = $('table.view.tablesorter', result).eq(1);
+						//var topupTable = $('table.view.tablesorter', result).eq(1);
+						var topupTable = $('h2', result).eq(3).next('table');
 						 $('tbody tr', topupTable).each(function(){
 							if (substr_count($('td', this).eq(5).text(), 'Yes')) {
 								topupsActivated++;
@@ -264,7 +267,15 @@ function fetchDataUsage () {
 
 						// Prepay Used Past 30 days
 						var prepayGigabytesUsedPast30Days = 0;
-						$('div#chart_div', result).next('table').find('b').each(function(){
+
+						//$('div#chart_div', result).next('table').find('b').each(function(){
+
+						//var h2s = $('h2', result);
+						//console.log(h2s.length);
+
+						//console.log($('h2', result).eq(2).html());
+
+						$('h2', result).eq(2).next('div').find('b').each(function(){
 							//console.log($(this).text());
 							var thisBoldUsage = $(this).text();
 							//console.log(thisBoldUsage);
@@ -319,6 +330,7 @@ function fetchDataUsage () {
 				// POST user's credentials to the login URL with attribute names that match Snap's standard login form
 				var loginUrl = 'https://secure.2degreesbroadband.co.nz/login/?next=/summary';
 				//var loginUrl = '/Snap.html'; // for testing
+				
 				var postData = {
 					form_Username: credentials.snapUsername,
 					form_Password: credentials.snapPassword,

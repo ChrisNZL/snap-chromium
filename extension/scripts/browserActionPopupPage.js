@@ -16,7 +16,7 @@ function displayUsageInfo () {
 		$('#planName a').text(str_replace('& Snap Plus', '', u.planName));
 
 		if (u.isPrepay) {
-			$('#planName a').attr('href', 'https://prepay.2degreesbroadband.co.nz/myprepay/').attr('title', 'View your Snap Prepay account summary');
+			$('#planName a').attr('href', 'https://prepay.2degreesbroadband.co.nz/myprepay/').attr('title', 'View your 2degrees Prepay Broadband account summary');
 		}
 		
 		// Normal data

@@ -71,22 +71,23 @@ $(document).ready(function(){
 
 
 
-				//loginUrl = '/Snap.html';
+				//loginUrl = '/TEST.html';
 
 
 
 
 				postData = {
 					_username: $('#username').val(),
+					_username1: $('#username').val(),
 					_password: $('#password').val(),
 					_target_path: '/myprepay/'
 				};
 				request = $.post(loginUrl, postData)
 				.done(function(result){
 
-					if ($('h2.error', result).length > 0) {
+					if ($('p.error', result).length > 0) {
 						resetBrowserActionIcon();
-						alert('Oops! Snap\'s prepay server returned the following error:\n\n"'+$('h2.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
+						alert('Oops! 2degrees\'s Prepay Broadband page returned the following error:\n\n"'+$('p.error', result).text()+'"\n\nPlease ensure your username and password are correct.');
 						unfreezeInputFields();
 					}
 					else {
