@@ -22,7 +22,9 @@ And a visual progress bar that displays:
 
 ### Installation instructions
 
-[Download from the Chrome Web Store.](https://chrome.google.com/webstore/detail/okffoefibimfmcddjbmbfnlbjdpjokkn)
+Using Chrome? [Download from the Chrome Web Store.](https://chrome.google.com/webstore/detail/okffoefibimfmcddjbmbfnlbjdpjokkn)
+
+Using Opera? Download [2degrees_Opera_0.7.1.nex](https://github.com/ChrisNZL/snap-chromium/raw/master/releases/2degrees_Opera_0.7.1.nex) and drag it to your Extensions page.
 
 
 #### Wanting to update?
