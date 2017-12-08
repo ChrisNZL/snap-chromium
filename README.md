@@ -2,7 +2,17 @@
 
 *Previously known as Snap Usage Monitor.*
 
-⚠ <b>2017-12-08 edit:</b> 2degrees recently changed their login and details page (resulting in parsing errors), and I've just switched ISPs, so I don't plan to continue supporting this extension at this time. As such, I've unpublished this extension from the Chrome Web Store. If anyone else would like to take over, please post a pull request or issue.
+---
+
+⚠ <b>2017-12-08 edit:</b>
+
+2degrees recently changed their login and details page (resulting in parsing errors), and I've just switched ISPs, so I don't plan to continue supporting this extension at this time.
+
+As such, I've unpublished this extension from the Chrome Web Store.
+
+If anyone else would like to take over, please post a pull request or issue.
+
+---
 
 ![](http://i.imgur.com/v88qYcb.png) ![](http://i.imgur.com/tExcgLi.png)
 
