@@ -2,6 +2,8 @@
 
 *Previously known as Snap Usage Monitor.*
 
+⚠ <b>2017-12-08 edit:</b> 2degrees recently changed their login and details page (resulting in parsing errors), and I've just switched ISPs, so I don't plan to continue supporting this extension at this time. As such, I've unpublished this extension from the Chrome Web Store. If anyone else would like to take over, please post a pull request or issue.
+
 ![](http://i.imgur.com/v88qYcb.png) ![](http://i.imgur.com/tExcgLi.png)
 
 If you're a [2degrees Broadband](https://www.2degreesmobile.co.nz/broadband) or [Snap Prepay](https://prepay.2degreesbroadband.co.nz/) customer in New Zealand, this Chrome extension lets you view details of your data usage with the click of a button:
